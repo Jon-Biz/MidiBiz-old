@@ -4,9 +4,10 @@ var App= new Backbone.Marionette.Application();
 AppController = {
 	index: function(hash) {
 			console.log('index triggered');
-			
-			App.ModuleName.Main();
-			
+			App.Midi.ready.add(function(options){
+				console.log('index resolving');
+				App.Puts.Main();			
+			});
   }
 	,other: function(hash){
 		console.log('other triggered');

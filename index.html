@@ -19,12 +19,19 @@
 
 <!--TEMPLATES -->
 
-<script type="text/template" id="tiddly">
-	<div id="id"><%= id %></div>
+<script type="text/template" id="view">
+	id: <%= id %>|name: <%= name %>|type <%= type %>
 </script>
+
+        <link rel="stylesheet" media="screen" href="css/midibridge.css"/>
+
 
 </head>
 <body>
+        <div id="content">
+            <div id="devices"></div>
+            <div id="messages">MIDI messages:<br/></div>
+        </div>
 
 <div id="container">
 	<div id="header">
@@ -40,6 +47,7 @@
 		</ul>
 	</div>
 
+
 	<div id="content-container">
 		<div id="main"></div>
 		<div id="sidebar"></div>
@@ -48,6 +56,9 @@
 		</div>
 	</div>
 </div>
+
+<div id = "content">
+</div>        
 
 <script type="text/javascript">
 	
@@ -58,19 +69,35 @@ var	fakedata = [{ title: "finish fridge" ,  text: "nothing here yet" ,  wikitext
 
 
 <!-- LIBRARIES -->	
-	<script src="libs/jquery.js"></script>
-	<script src="libs/jquery.ba-tinypubsub.js"></script>
-	<script src="libs/json2.js"></script>
-	<script src="libs/underscore.js"></script>
-	<script src="libs/backbone.js"></script>
-	<script src="libs/backbone.marionette.js"></script>
-	<script src="libs/backbone.eventbinder.js"></script>
-	<script src="libs/backbone-relational.js"></script>
-	
+	<script src="libs/js/jquery-1.8.3.js"></script>
+	<script src="libs/js/json2.js"></script>
+	<script src="libs/js/underscore.js"></script>
+	<script src="libs/js/backbone.js"></script>
+	<script src="libs/js/backbone.marionette.js"></script>
+	<script src="libs/js/backbone.eventbinder.js"></script>
+	<script src="libs/js/backbone-relational.js"></script>
+
+	<script src="libs/js/Bacon.js"></script>
+  <script type="text/javascript" src="libs/js/MIDIBridge-0.6.3.js"></script>
+
+<!-- SOURCE -->	
 	<script src="app/control.js"></script>
+
 	<script src="app/modules/views.js"></script>
-	<script src="app/modules/models.js"></script>
+	<script src="app/modules/models-inputs.js"></script>
+	<script src="app/modules/models-outputs.js"></script>
+	<script src="app/modules/midi-init.js"></script>
+
 	<script src="app/modules/app.js"></script>
+
+
+        
+        <!-- the midibridge -->
+        <!--script type="text/javascript" src="libs/js/midibridge-0.5.4.min.js"></script-->
+        
+        <!-- your javascript code -->
+        <!--script type="text/javascript" src="getdevices.js"></script-->
+        
 
 </body>
 </html>

@@ -1,6 +1,6 @@
-appGTD.module("ModuleName", function(ModuleName){
+App.module("Puts", function(Puts){
 	
-	ModuleName.View = Backbone.Marionette.ItemView.extend({
+	Puts.InputView = Backbone.Marionette.ItemView.extend({
 		tagName:"div"
 		,className:"view"
 		,initialize:function(){		
@@ -13,3 +13,9 @@ appGTD.module("ModuleName", function(ModuleName){
 		}
 
 	});
+	
+	Puts.InputsView = Backbone.Marionette.CollectionView.extend({
+		itemView:Puts.InputView
+		
+	});
+});
