@@ -6,25 +6,26 @@ App.module("Puts", function(Puts){
   
 	App.vent.bindTo("",function(){
 
-	})
+	});
 	
 //	console.log(Tids);
 
 	App.Puts.Main = function(){
-			    
-	  InputsView = new Puts.InputsView({collection: App.Midi.Inputs});			
+		console.log('here');
+		App.Midi.ready.add(function(){
+		console.log('not here');
+		InputsView = new Puts.InputsView({collection: App.Midi.Inputs});			
 		OutputsView = new Puts.InputsView({collection: App.Midi.Outputs});			
 	
 		App.addRegions({
-				SideBarRegion: "#sidebar"
-				,MainRegion: "#main"
-			});
+			SideBarRegion: "#sidebar"
+			,MainRegion: "#main"
+		});
 							
-			//App.SideBarRegion.show(View);
+		//App.SideBarRegion.show(View);
 		App.MainRegion.show(OutputsView);
 		App.SideBarRegion.show(InputsView);
 	     
-					  
 		Axis = App.Midi.Inputs.where({name: "AXIS-49 2A",type:"input"});
 
 		console.log('shit');
@@ -34,28 +35,21 @@ App.module("Puts", function(Puts){
 			console.log('output: ',output.get('name'));
 		});	   		   	
 
-    Loopmidi = App.Midi.Outputs.where({name: "loopMIDI Port"})[0];
-    Loopmidi1 = App.Midi.Outputs.where({name: "loopMIDI Port 1"})[0];
-    Loopmidi2 = App.Midi.Outputs.where({name: "loopMIDI Port 2"})[0];
-
-    console.log(Loopmidi);
-//   	Loopmidi2 = Puts.Outputs.where({name: "loopMIDI Port 1",type:"output"})[0];
-//   	Loopmidi3 = Puts.Outputs.where({name: "loopMIDI Port 2",type:"output"})[0];
-
-			Loopmidi.addInput(Axis[0]);
-			Loopmidi1.addInput(Axis[1]);
-			Loopmidi2.addInput(Axis[2]);
+		Loopmidi = App.Midi.Outputs.where({name: "loopMIDI Port"})[0];
+		Loopmidi1 = App.Midi.Outputs.where({name: "loopMIDI Port 1"})[0];
+		Loopmidi2 = App.Midi.Outputs.where({name: "loopMIDI Port 2"})[0];
 	
-//			Loopmidi2.addInput(Axis[1]);
+		console.log(Loopmidi);
+ 
+		Loopmidi.addInput(Axis[0]);	
+			Loopmidi2.addInput(Axis[1]);
 //			Loopmidi3.addInput(Axis[2]);
 						       	
-	}			
-
-	
+	});			
+};
 });
 
 App.start();
-
 /*
 	 window.addEventListener('load', function () {
     
