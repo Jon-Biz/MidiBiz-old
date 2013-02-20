@@ -11,39 +11,28 @@ App.module("Puts", function(Puts){
 //	console.log(Tids);
 
 	App.Puts.Main = function(){
-		console.log('here');
 		App.Midi.ready.add(function(){
-		console.log('not here');
-		InputsView = new Puts.InputsView({collection: App.Midi.Inputs});			
-		OutputsView = new Puts.InputsView({collection: App.Midi.Outputs});			
-	
-		App.addRegions({
-			SideBarRegion: "#sidebar"
-			,MainRegion: "#main"
-		});
-							
-		//App.SideBarRegion.show(View);
-		App.MainRegion.show(OutputsView);
-		App.SideBarRegion.show(InputsView);
-	     
-		Axis = App.Midi.Inputs.where({name: "AXIS-49 2A",type:"input"});
 
-		console.log('shit');
+			InputsView = new Puts.InputsView({collection: App.Midi.Inputs});			
+			OutputsView = new Puts.InputsView({collection: App.Midi.Outputs});			
 		
-		App.Midi.Outputs.each(function(output){
-			console.log('here it is');		
-			console.log('output: ',output.get('name'));
-		});	   		   	
-
-		Loopmidi = App.Midi.Outputs.where({name: "loopMIDI Port"})[0];
-		Loopmidi1 = App.Midi.Outputs.where({name: "loopMIDI Port 1"})[0];
-		Loopmidi2 = App.Midi.Outputs.where({name: "loopMIDI Port 2"})[0];
+			App.addRegions({
+				SideBarRegion: "#sidebar"
+				,MainRegion: "#main"
+			});
+								
+			App.MainRegion.show(OutputsView);
+			App.SideBarRegion.show(InputsView);
+		     
+			Axis = App.Midi.Inputs.where({name: "AXIS-49 2A",type:"input"});
 	
-		console.log(Loopmidi);
- 
-		Loopmidi.addInput(Axis[0]);	
-			Loopmidi2.addInput(Axis[1]);
-//			Loopmidi3.addInput(Axis[2]);
+			Loopmidi = App.Midi.Outputs.where({name: "loopMIDI Port"})[0];
+			Loopmidi1 = App.Midi.Outputs.where({name: "loopMIDI Port 1"})[0];
+			Loopmidi2 = App.Midi.Outputs.where({name: "loopMIDI Port 2"})[0];
+		 
+			Loopmidi.addInput(Axis[0]);	
+			Loopmidi1.addInput(Axis[1]);
+			Loopmidi2.addInput(App.Midi.Inputs.where({name: "AXIS-49 USB Keyboard",type:"input"})[0]);
 						       	
 	});			
 };
