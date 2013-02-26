@@ -1,14 +1,12 @@
 App.module("Midi", function(Midi){
 
-console.log('why the fuck not?');
 	App.Midi.ready = new Backbone.Marionette.Callbacks();
 	
 	Midi.Inputs = new Midi.InputCollection();		    	
 	Midi.Outputs = new Midi.OutputCollection();
+
 	App.addInitializer(function(options){
 
-		
-		
 		window.addEventListener('load', function() {
 		    
 	    var devices = document.getElementById("devices"),
