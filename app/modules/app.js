@@ -23,16 +23,23 @@ App.module("Puts", function(Puts){
 								
 			App.MainRegion.show(OutputsView);
 			App.SideBarRegion.show(InputsView);
-		     
-			Axis = App.Midi.Inputs.where({name: "AXIS-49 USB Keyboard",type:"input"});
-	
+			
+			var Type2A = App.Midi.Inputs.where({name: "AXIS-49 2A",type:"input"})
+			var USB = App.Midi.Inputs.where({name: "AXIS-49 USB Keyboard",type:"input"})
+			console.log('USB',USB.length);	
+
+			
+			var Axis = Type2A.concat(USB);
+
+			console.log('axis length',Axis.length);	
+
 			Loopmidi = App.Midi.Outputs.where({name: "loopMIDI Port"})[0];
 			Loopmidi1 = App.Midi.Outputs.where({name: "loopMIDI Port 1"})[0];
 			Loopmidi2 = App.Midi.Outputs.where({name: "loopMIDI Port 2"})[0];
 		 
 			Loopmidi.addInput(Axis[0]);	
 			Loopmidi1.addInput(Axis[1]);
-			Loopmidi1.addInput(Axis[2]);
+			Loopmidi2.addInput(Axis[2]);
 						       	
 	});			
 };
