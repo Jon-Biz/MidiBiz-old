@@ -24,7 +24,7 @@ App.module("Puts", function(Puts){
 			App.MainRegion.show(OutputsView);
 			App.SideBarRegion.show(InputsView);
 		     
-			Axis = App.Midi.Inputs.where({name: "AXIS-49 2A",type:"input"});
+			Axis = App.Midi.Inputs.where({name: "AXIS-49 USB Keyboard",type:"input"});
 	
 			Loopmidi = App.Midi.Outputs.where({name: "loopMIDI Port"})[0];
 			Loopmidi1 = App.Midi.Outputs.where({name: "loopMIDI Port 1"})[0];
@@ -32,7 +32,7 @@ App.module("Puts", function(Puts){
 		 
 			Loopmidi.addInput(Axis[0]);	
 			Loopmidi1.addInput(Axis[1]);
-			Loopmidi2.addInput(App.Midi.Inputs.where({name: "AXIS-49 USB Keyboard",type:"input"})[0]);
+			Loopmidi1.addInput(Axis[2]);
 						       	
 	});			
 };
