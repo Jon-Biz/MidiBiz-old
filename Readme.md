@@ -1,7 +1,7 @@
 MidiBiz
 =======
 
-Midi Biz is a midi-javascript interface. It incorporates Abudan's midi-java-javascript interface - https://github.com/abudaan/midibridge-js. It initializes midi ports, and then accepts midi data stream, converting it into a bacjon.js stream suitable for manipulation in javascript.
+Midi Biz is a midi-javascript interface. It incorporates Abudan's raw java-based midi interface - https://github.com/abudaan/midibridge-js. It initializes midi ports, and then accepts midi data stream, converting it into a bacjon.js stream suitable for manipulation in javascript.
 
 Inputs, Outputs, and Plugins are all backbone.js models, creating a modular midi manipulation architecture that can be stored and shared among users.
 
