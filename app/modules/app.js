@@ -24,8 +24,13 @@ App.module("Puts", function(Puts){
 			App.MainRegion.show(OutputsView);
 			App.SideBarRegion.show(InputsView);
 			
-			var Type2A = App.Midi.Inputs.where({name: "AXIS-49 2A",type:"input"})
-			var USB = App.Midi.Inputs.where({name: "AXIS-49 USB Keyboard",type:"input"})
+			var Type2A = App.Midi.Inputs.where({name: "AXIS-49 2A",type:"input"});
+			var USB = App.Midi.Inputs.where({name: "AXIS-49 USB Keyboard",type:"input"});
+
+			var QUNEO = App.Midi.Inputs.where({name:"QUNEO",type:'input'});
+
+
+
 			console.log('USB',USB.length);	
 
 			
@@ -36,11 +41,14 @@ App.module("Puts", function(Puts){
 			Loopmidi = App.Midi.Outputs.where({name: "loopMIDI Port"})[0];
 			Loopmidi1 = App.Midi.Outputs.where({name: "loopMIDI Port 1"})[0];
 			Loopmidi2 = App.Midi.Outputs.where({name: "loopMIDI Port 2"})[0];
+			Loopmidi3 = App.Midi.Outputs.where({name: "loopMIDI Port 3"})[0];
 		 
 			Loopmidi.addInput(Axis[0]);	
 			Loopmidi1.addInput(Axis[1]);
 			Loopmidi2.addInput(Axis[2]);
-						       	
+			Loopmidi3.addInput(QUNEO[0]);
+			
+			
 	});			
 };
 });
