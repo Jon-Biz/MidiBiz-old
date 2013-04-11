@@ -1,6 +1,6 @@
 App.module("Midi", function(Midi){
 
-	Midi.Input = Backbone.RelationalModel.extend({
+	Midi.Input = Backbone.Model.extend({
 	  defaults: {
 			title: "Input"
 			,text: "nothing here yet"

@@ -1,6 +1,6 @@
 App.module("Puts", function(Puts){
 
-	Puts.Input = Backbone.RelationalModel.extend({
+	Puts.Input = Backbone.Model.extend({
 	  defaults: {
 			title: "Input"
 			,text: "nothing here yet"
