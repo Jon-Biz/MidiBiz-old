@@ -1,3 +1,7 @@
+
+var App= new Backbone.Marionette.Application();
+
+
 App.module("Puts", function(Puts){
   App.addInitializer(function(options){
 
