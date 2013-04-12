@@ -30,6 +30,6 @@ App.bind("initialize:after", function(options){
   new Router();
  
   if (Backbone.history&&!this.debug){
- //   Backbone.history.start();
+    Backbone.history.start();
   }
 });  
