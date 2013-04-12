@@ -7,11 +7,11 @@ module.exports = function(grunt) {
     meta: {
       version: '0.1.0'
     },
-    banner: '/*! PROJECT_NAME - v<%= meta.version %> - ' +
+    banner: '/*! MidiBiz - v<%= meta.version %> - ' +
       '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-      '* http://PROJECT_WEBSITE/\n' +
+      '* https://github.com/Jon-Biz/MidiBiz/\n' +
       '* Copyright (c) <%= grunt.template.today("yyyy") %> ' +
-      'YOUR_NAME; Licensed MIT */\n',
+      'Jonathan El-Bizri; Licensed MIT */\n',
     // Task configuration.
     concat: {
       options: {
@@ -19,8 +19,15 @@ module.exports = function(grunt) {
         stripBanners: true
       },
       dist: {
-        src: ['app/**/*.js'],
-        dest: 'dist/FILE_NAME.js'
+        src: ['libs/**/*.js',
+        			'app/control.js',
+                   'app/modules/views.js',
+                   'app/modules/models-inputs.js',
+                   'app/modules/models-outputs.js',
+                   'app/modules/midi-init.js',
+                   'app/modules/app.js'
+                   ],
+        dest: 'dist/src/midibiz.js'
       }
     },
     uglify: {
@@ -29,8 +36,22 @@ module.exports = function(grunt) {
       },
       dist: {
         src: '<%= concat.dist.dest %>',
-        dest: 'dist/FILE_NAME.min.js'
+        dest: 'dist/src/midibiz.min.js'
       }
+    },
+    copy:{
+    	main:{
+    		files:[
+    			{
+    				src:['index.html',
+    				          'java/**',
+    				          'lib/*',
+    				          'css/**.css',
+    				          ],
+    				dest:'dist/'
+    				}
+    		]	
+    	}
     },
 /*    jshint: {
       options: {
@@ -95,6 +116,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
 
   // Default task.
-  grunt.registerTask('default', ['jasmine', 'concat', 'uglify']);
+  grunt.registerTask('default', [ 'concat','copy']);
 
 };
