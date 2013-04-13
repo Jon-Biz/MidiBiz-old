@@ -20,7 +20,7 @@ module.exports = function(grunt) {
       },
       dist: {
         src: ['libs/**/*.js',
-        			'app/control.js',
+                    'app/control.js',
                    'app/modules/views.js',
                    'app/modules/models-inputs.js',
                    'app/modules/models-outputs.js',
@@ -39,21 +39,7 @@ module.exports = function(grunt) {
         dest: 'dist/src/midibiz.min.js'
       }
     },
-    copy:{
-    	main:{
-    		files:[
-    			{
-    				src:['index.html',
-    				          'java/**',
-    				          'lib/*',
-    				          'css/**.css',
-    				          ],
-    				dest:'dist/'
-    				}
-    		]	
-    	}
-    },
-/*    jshint: {
+    jshint: {
       options: {
         curly: true,
         eqeqeq: true,
@@ -76,12 +62,11 @@ module.exports = function(grunt) {
         src: 'Gruntfile.js'
       },
       lib_test: {
-        src: ['app/*.js']
+        src: ['app/control.js']
       }
     },
-    */
     jasmine:{
-      src:['app/modules.vies.js'],
+      src:['app/modules.*.js'],
       options:{
         vendor:[
            'libs/js/json2.js',
@@ -92,8 +77,42 @@ module.exports = function(grunt) {
           'libs/js/Bacon.js',
           'jasmine/lib/*.js'
           ],
-         specs:['jasmine/spec/**/sandboxSpec.js','modelSpec.js']
+         specs:['jasmine/spec/**/coffee.js']
         }
+    },
+    coffee:{
+      compile:{
+        options:{
+          bare:true,        
+        },
+        files:{
+          'jasmine/spec/coffee.js':'jasmine/spec/*.coffee'
+        } 
+      }
+    },
+    compass:{
+      dist: {
+        options: {
+          sassDir: 'stylesheets/sass',
+          cssDir: 'stylesheets',
+          
+        }
+      }
+    },
+    copy:{
+      main:{
+        files:[
+            {
+              src:[
+               'index.html',
+               'java/*',
+               'libs/**/*.js',
+               'stylesheets/*.css'
+              ],
+            dest:'dist/'
+          }
+        ] 
+      }
     },
     watch: {
       gruntfile: {
@@ -114,8 +133,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-compass');
 
   // Default task.
-  grunt.registerTask('default', [ 'concat','copy']);
+  grunt.registerTask('default', ['compass','coffee','jasmine','concat','uglify','copy',]);
 
 };
