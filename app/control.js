@@ -11,16 +11,15 @@ AppController = {
   }
 	,other: function(hash){
 		console.log('other triggered');
-	    }
-			  
+    }	  
 };
 
 Router = Backbone.Marionette.AppRouter.extend({
   appRoutes: {
     "": "index",
     "other":"other"
-  },
-  controller: AppController
+  }
+  ,controller: AppController
 });
 
 
@@ -32,4 +31,4 @@ App.bind("initialize:after", function(options){
   if (Backbone.history&&!this.debug){
     Backbone.history.start();
   }
-});  
+});
