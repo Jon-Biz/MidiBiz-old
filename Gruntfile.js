@@ -107,7 +107,8 @@ module.exports = function(grunt) {
                'index.html',
                'java/*',
                'libs/**/*.js',
-               'stylesheets/*.css'
+               'stylesheets/*.css',
+               'app/**/*'
               ],
             dest:'dist/'
           }
@@ -137,6 +138,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compass');
 
   // Default task.
-  grunt.registerTask('default', ['compass','coffee','jasmine','concat','uglify','copy',]);
+  grunt.registerTask('default', ['compass','coffee','jasmine','copy',]);
 
 };
