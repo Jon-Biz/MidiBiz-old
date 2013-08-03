@@ -1,5 +1,4 @@
 
-var App= new Backbone.Marionette.Application();
 
 AppController = {
 	index: function(hash) {
