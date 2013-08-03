@@ -1,11 +1,20 @@
-App.module("Puts", function(Puts){
+App.module("Patches", function(Patches){
 
-	Puts.Input = Backbone.Model.extend({
+	Patches.Patch = Backbone.Model.extend({
 	  defaults: {
-			title: "Input"
+			title: "Patch"
 			,text: "nothing here yet"
+			,value: "0"
 			}
 		,initialize: function(){
+
+			this.input = new Bacon.Bus();
+
+			this.output = 0;
+			var that = this;
+			this.input.subscribe(function(event){
+				that.output = event.value;
+			})
 
 			//var input = Puts.MIDIAccess.getInput(Puts.MIDIAccess.enumerateInputs()[this.get('index')]);
 			/*
@@ -20,27 +29,24 @@ App.module("Puts", function(Puts){
 //		    	console.log(e.toString());         
 //		    	});        
 			
-			this.stream = Bacon.fromEventTarget(this.get('device'),'midimessage');
+			// this.stream = Bacon.fromEventTarget(this.get('value'),'midimessage');
 			
-			stream.onValue(function(val){
-				console.log(val.toString());
-			})
+			// this.stream.onValue(function(val){
+			// 	console.log(val.toString());
+			// })
 			//_.bind(this.addConnection,this);
 		}
 		,urlRoot: 'urlroot'
 		,idAttribute: "_id"
 		,addConnection: function(model){
-			console.log(this.get('id'));
-			console.log(model.get('id'));
-			midiBridge.addConnection(this.get('id'),model.get('id'));
 			this.set({connectedto:model});
 			console.log('connected '+this.get('name')+' to '+model.get('name'));
 		}
 	});
 
 	
-	Puts.InputCollection = Backbone.Collection.extend({
-		model : Puts.Input	
+	Patches.PatchCollection = Backbone.Collection.extend({
+		model : Patches.Patch	
 		,initialize : function(){
 			this.on('add',function(){
 				//console.log('item added');
