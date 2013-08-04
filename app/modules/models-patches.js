@@ -5,16 +5,14 @@ App.module("Patches", function(Patches){
 			title: "Patch"
 			,text: "nothing here yet"
 			,value: "0"
+			,func: "this.output = event.value"
 			}
 		,initialize: function(){
+			_.bind(this.defaultfunc,this);
 
 			this.input = new Bacon.Bus();
-
 			this.output = 0;
-			var that = this;
-			this.input.subscribe(function(event){
-				that.output = event.value;
-			})
+			this.setOutput();
 
 			//var input = Puts.MIDIAccess.getInput(Puts.MIDIAccess.enumerateInputs()[this.get('index')]);
 			/*
@@ -36,11 +34,20 @@ App.module("Patches", function(Patches){
 			// })
 			//_.bind(this.addConnection,this);
 		}
+		,setOutput :function(){
+			var that = this;
+			this.input.subscribe(function(event){
+				that.defaultfunc(event);
+				});
+			
+			}
+		,defaultfunc:function(event){
+				eval(this.get('func'));
+			}	
 		,urlRoot: 'urlroot'
 		,idAttribute: "_id"
-		,addConnection: function(model){
-			this.set({connectedto:model});
-			console.log('connected '+this.get('name')+' to '+model.get('name'));
+		,setInput : function(input){
+			this.unplug =	this.input.plug(input);
 		}
 	});
 
