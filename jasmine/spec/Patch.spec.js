@@ -44,7 +44,7 @@ describe("a model", function() {
 			});		
 		});
 
-	describe("should parse inputs with eval contents", function() {
+	describe("should parse inputs with eval contents and send to output", function() {
 
 		var incoming;
 		beforeEach(function() {
@@ -52,7 +52,7 @@ describe("a model", function() {
 			model.setInput(incoming);
 			});
 
-		describe("when func is changed to make output = event+1", function() {
+		describe("when func varialbe is changed to make 'output = event+1'", function() {
 			it("should return 4 when 3 is sent to input", function() {
 
 					expect(model.output).toEqual(0);
@@ -64,19 +64,12 @@ describe("a model", function() {
 					model.set({'func':"this.output = event.value+1"});
 					model.input.push(3);
 					expect(model.output).toEqual(4);
-
-
 				});
 			});
 		
 		});
 
-	describe("should contain other patches", function() {
-
-		describe("should ", function() {
-			
-			});
-		
+	xdescribe("should contain other patches", function() {		
 		});
 
 	});
