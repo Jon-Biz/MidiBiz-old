@@ -1,0 +1,41 @@
+App.module("Midi", function(Midi){
+
+  Midi.PatchModel = Backbone.Model.extend({
+    stream:0
+    ,defaults:{
+      title:"patch"
+      ,text:"empty box"
+      ,"class":"patch"
+<<<<<<< HEAD
+      ,endPoints:[{ 
+        isSource:true
+        ,anchor:"BottomRight"
+        },
+        {
+        isTarget:true
+        ,anchor:"BottomLeft"
+        } ]
+      ,onconnect:function(model, connection){
+        model.set({'output':connection});
+        connection.set({'input':this});
+      }
+      ,ondisconnect:function(model, connection){
+        model.unset('output');
+        connection.unset('input');
+      }
+=======
+>>>>>>> bugfix
+    }
+    ,urlRoot: 'urlroot'
+    ,idAttribute: "_id"
+    ,connect:function(connection){
+      App.vent.trigger("connect",this,connection);
+      this.onconnect(connection);
+    }
+    ,disconnect:function(connection){
+      App.vent.trigger("disconnect",this,connection);
+      connect(connection);
+    }
+  });
+  
+});

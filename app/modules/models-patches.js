@@ -3,6 +3,8 @@ App.module("Patches", function(Patches){
 	Patches.Patch = Backbone.Model.extend({
 	  defaults: {
 			title: "Patch"
+			,id:"patch"
+			,type:"patch"
 			,text: "nothing here yet"
 			,value: "0"
 			,func: "this.output = event.value"

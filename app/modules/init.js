@@ -36,7 +36,6 @@ App.module("Puts", function(Puts){
 			
 			var Axis = Type2A.concat(USB);
 
-			console.log('axis length',Axis.length);	
 
 			Loopmidi = App.Midi.Outputs.where({name: "loopMIDI Port"})[0];
 			Loopmidi1 = App.Midi.Outputs.where({name: "loopMIDI Port 1"})[0];

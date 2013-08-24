@@ -35,8 +35,12 @@
 
 <!-- include source files here... --> 
 
+<script type="text/template" id="patch">
+  id: <%= id %>|name: <%= name %>|type <%= type %>
+</script>
   <script type="text/javascript" src="../app/modules/app.js"></script>
   <script type="text/javascript" src="../app/modules/models-patches.js"></script>
+  <script type="text/javascript" src="../app/modules/views-patches.js"></script>
 
   <!--script type="text/javascript" src="../app/modules/models-inputs.js"></script>
   <script type="text/javascript" src="../app/modules/models-outputs.js"></script>
@@ -47,6 +51,7 @@
   <!-- include spec files here...     -->
 
   <script type="text/javascript" src="spec/Patch.spec.js"></script>
+  <script type="text/javascript" src="spec/PatchView.spec.js"></script>
   <!--script type="text/javascript" src="spec/sandboxSpec.js"></script-->
 
 <!--

@@ -1,0 +1,31 @@
+/* line 4, sass/main.scss */
+#patches {
+  width: 1000px;
+  height: 500px;
+  background-color: #000;
+}
+
+/* line 17, sass/main.scss */
+.patch {
+  background-color: #FFF;
+  position: absolute;
+  width: 250px;
+  height: 50px;
+}
+
+/* line 20, sass/main.scss */
+.input {
+  background-color: #FFF;
+  position: absolute;
+  width: 250px;
+  height: 50px;
+}
+
+/* line 23, sass/main.scss */
+.output {
+  background-color: #FFF;
+  position: absolute;
+  width: 250px;
+  height: 50px;
+  left: 400px;
+}
