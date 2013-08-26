@@ -17,13 +17,13 @@ var MidiService;
 
 	describe('MidiService.getInputs', function() {
 	  it('should return an array', function() {
-	    expect(MidiService.getInputs()).toEqual([]);
+	    expect(MidiService.getInputs() instanceof Array).toBeTruthy();
 	  });
 	});  
 
 	describe('MidiService.getOutputs', function() {
 	  it('should return an array', function() {
-	    expect(MidiService.getOutputs()).toEqual([]);
+	    expect(MidiService.getOutputs() instanceof Array).toBeTruthy();
 	  });
 	});  
 
