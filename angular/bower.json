@@ -6,7 +6,10 @@
     "json3": "~3.2.4","es5-shim": "~2.0.8",
     "angular-resource": "~1.0.7",
     "angular-cookies": "~1.0.7",
-    "angular-sanitize": "~1.0.7"
+    "angular-sanitize": "~1.0.7",
+    "jquery.ui": "",
+    "jsplumb":"git://github.com/sporritt/jsPlumb.git",
+    "midiBridge":"git://github.com/Jon-Biz/MIDIBridge.git"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.7",
