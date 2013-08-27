@@ -2,7 +2,10 @@
 
 var midiservicemock = {
         getInputs:function () {
-          return [];
+        	var input = {
+        		name: "midi input 1",
+        	}
+          return [input];
         },
         getOutputs:function () {
           return[];

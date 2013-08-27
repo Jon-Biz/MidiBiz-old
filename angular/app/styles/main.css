@@ -6,7 +6,8 @@ body {
 
 .hero-unit {
     margin: 50px auto 0 auto;
-    width: 300px;
+    width: 500px;
+    height:500px;
     font-size: 18px;
     font-weight: 200;
     line-height: 30px;
@@ -19,4 +20,19 @@ body {
     font-size: 60px;
     line-height: 1;
     letter-spacing: -1px;
+}
+
+.midiinput{
+    background-color: red;
+    border-style: double;
+    border-width: 5px;
+    border-color: black;
+    position:absolute;
+}
+.midioutput{
+    background-color: blue;
+    border-style: double;
+    border-width: 5px;
+    border-color: black;
+    position:absolute;
 }

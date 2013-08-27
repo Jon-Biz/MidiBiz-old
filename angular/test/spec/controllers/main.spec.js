@@ -22,6 +22,12 @@ describe('Controller: MainCtrl', function () {
     expect(scope.midiInputs).toBeDefined();
   });
 
+  describe("scope.midiInputs", function() {
+    it("should have length 1 (from stub)", function() {
+      expect(scope.midiInputs.length).toEqual(1);
+    });
+  });
+
   it("should attach a midiOutputs array to the scope", function() {
     expect(scope.midiOutputs).toBeDefined();
   });
