@@ -9,6 +9,20 @@ MidiIO.config(function () {
 
 MidiIO.factory('midiservice',function ($timeout) {
 
+	jsPlumb.ready(function(){
+		jsPlumb.bind("connection", function(info) { 
+			console.log('connection!') 
+			console.log(info.sourceId);
+			console.log(info.targetId);
+		});
+
+		jsPlumb.bind("connectionDetached", function(info) { 
+			console.log('end connection!') 
+			console.log(info.sourceId);
+			console.log(info.targetId);
+		});
+	})
+
 	var inputs = [];
 	var outputs = [];
 
