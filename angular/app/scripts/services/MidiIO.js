@@ -33,13 +33,20 @@ MidiIO.factory('midiservice',function ($timeout) {
 	midiBridge.init(function(MIDIAccess){
 		
 		_.each(MIDIAccess.enumerateInputs(),function(device,index){
-			var name = replacespace(device.deviceName);
-			update_inputs({'name':'in-'+name});
+			var id = 'input-'+replacespace(device.deviceName);
+
+			update_inputs({
+				'id':id,
+				'name':device.deviceName
+			});
 		});
 
 		_.each(MIDIAccess.enumerateOutputs(),function(device,index){
-			var name = replacespace(device.deviceName);
-			update_outputs({'name':'out'+name});
+			var id = 'output-'+replacespace(device.deviceName);
+			update_outputs({
+				'id':id,
+				'name':device.deviceName
+			});
 		});
 
 //		devices.innerHTML += "<div>Output length is "+MIDIAccess.enumerateOutputs().length+"</div>";

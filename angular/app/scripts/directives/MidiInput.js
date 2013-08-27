@@ -10,7 +10,7 @@ angular.module('midiInput', [])
 	.directive('midiinput',function(){
 		return{
 			restrict:'C',
-			template:'<div id="{{input.name}}">Midi Input:{{input.name}}</div>',
+			template:'<div id="{{input.id}}">Midi Input:{{input.name}}</div>',
 			replace:'false',
 			link:{
 				post: function($scope,element,attrs){
@@ -18,8 +18,8 @@ angular.module('midiInput', [])
 					jsPlumb.ready(function () {
 //TODO - replace with proper callback
 						window.setTimeout(function () {
-							jsPlumb.draggable(scope.input.name);
-							jsPlumb.addEndpoint(scope.input.name,{
+							jsPlumb.draggable(scope.input.id);
+							jsPlumb.addEndpoint(scope.input.id,{
 								endpoint:"Rectangle",
 							    paintStyle:{ width:25, height:21, fillStyle:'#666' },
 							    connectorStyle : { strokeStyle:"#666" },
@@ -33,7 +33,7 @@ angular.module('midiInput', [])
 	.directive('midioutput',function(){
 		return{
 			restrict:'C',
-			template:'<div id="{{output.name}}">Midi Output:{{output.name}}</div>',
+			template:'<div id="{{output.id}}">Midi Output:{{output.name}}</div>',
 			replace:'false',
 			link:{
 				post: function($scope,element,attrs){
@@ -41,8 +41,8 @@ angular.module('midiInput', [])
 					jsPlumb.ready(function () {
 //TODO - replace with proper callback
 						window.setTimeout(function () {
-							jsPlumb.draggable(scope.output.name);
-							jsPlumb.addEndpoint(scope.output.name,{
+							jsPlumb.draggable(scope.output.id);
+							jsPlumb.addEndpoint(scope.output.id,{
 								endpoint:"Rectangle",
 							    paintStyle:{ width:25, height:21, fillStyle:'#666' },
 							    connectorStyle : { strokeStyle:"#666" },
