@@ -4,27 +4,62 @@ var MidiIO = angular.module('MidiIO',[]);
 
 MidiIO.config(function ($provide) {
 
-	$provide.value('inputs',[{name:'input1'},{name:'input2'}]);
-	$provide.value('outputs',[{name:'output'},{name:'output2'}]);
-
-	midiBridge.init(function(MIDIAccess){
-		console.log("Input length is "+MIDIAccess.enumerateInputs().length);
-		console.log("Output length is "+MIDIAccess.enumerateOutputs().length);
-	});
 });
 
-MidiIO.factory('midiservice',function (inputs,outputs) {
+MidiIO.factory('midiservice',function ($timeout) {
+
+	var inputs = [];
+	var outputs = [];
 
 	var Midi;
 
 	Midi = {
-		'getInputs':function(){
-			return inputs;
-		},
-		'getOutputs':function () {
-			return outputs;
-		}
+		'inputs':inputs,
+		'outputs':outputs
 	};
+
+	function update_inputs (input) {
+		$timeout(function () {
+			inputs.push(input);
+		},100);
+	};
+
+	function update_outputs (output) {
+		$timeout(function () {
+			outputs.push(output);
+		},100);
+	};
+
+	midiBridge.init(function(MIDIAccess){
+		
+		_.each(MIDIAccess.enumerateInputs(),function(device,index){
+			var name = replacespace(device.deviceName);
+			update_inputs({'name':'in-'+name});
+		});
+
+		_.each(MIDIAccess.enumerateOutputs(),function(device,index){
+			var name = replacespace(device.deviceName);
+			update_outputs({'name':'out'+name});
+		});
+
+//		devices.innerHTML += "<div>Output length is "+MIDIAccess.enumerateOutputs().length+"</div>";
+		
+		function replacespace (name) {
+			var namesplit = name;
+			var name = "";
+			for(var i=0;i<namesplit.length;i++){
+				if(namesplit[i]!=" "){
+				name = name + namesplit[i];
+				}else{				
+				name = name + "_";
+				};
+			};
+			return name;
+		}
+
+	});
+
 	return Midi;
+
 });
 
