@@ -34,9 +34,12 @@ MidiIO.factory('midiservice',function ($timeout) {
 	midiBridge.init(function(MIDIAccess){
 		
 		_.each(MIDIAccess.enumerateInputs(),function(device,index){
-			var id = 'input-'+replacespace(device.deviceName);
 
-			update_inputs({
+			var id = 'input-'+index;
+
+			var stream = Bacon.fromEventTarget(MIDIAccess.getInput(device),'midimessage');
+
+			var midiin = {
 				'id':id,
 				'name':device.deviceName
 			});
@@ -45,8 +48,7 @@ MidiIO.factory('midiservice',function ($timeout) {
 		_.each(MIDIAccess.enumerateOutputs(),function(device,index){
 			if(device.deviceName != "Microsoft GS Wavetable Synth"){
 
-
-				var id = 'output-'+replacespace(device.deviceName);
+				var id = 'output-'+index;
 
 				var	midiout = {
 					'id':id,
@@ -63,21 +65,6 @@ MidiIO.factory('midiservice',function ($timeout) {
 
 
 		});
-
-//		devices.innerHTML += "<div>Output length is "+MIDIAccess.enumerateOutputs().length+"</div>";
-		
-		function replacespace (name) {
-			var namesplit = name;
-			var name = "";
-			for(var i=0;i<namesplit.length;i++){
-				if(namesplit[i]!=" "){
-				name = name + namesplit[i];
-				}else{				
-				name = name + "_";
-				};
-			};
-			return name;
-		}
 
 	});
 
