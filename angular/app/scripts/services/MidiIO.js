@@ -41,8 +41,16 @@ MidiIO.factory('midiservice',function ($timeout) {
 
 			var midiin = {
 				'id':id,
-				'name':device.deviceName
-			});
+				'name':device.deviceName,
+				'stream': stream
+			};
+
+			stream.onValue(function(val){
+				console.log(val.toString());
+			})
+
+			update_inputs(midiin);
+
 		});
 
 		_.each(MIDIAccess.enumerateOutputs(),function(device,index){
