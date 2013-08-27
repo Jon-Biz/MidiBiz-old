@@ -10,7 +10,8 @@
     "jquery.ui": "",
     "jsplumb":"git://github.com/sporritt/jsPlumb.git",
     "midiBridge":"git://github.com/Jon-Biz/MIDIBridge.git",
-    "underscore":"~1.5.2"
+    "underscore":"~1.5.1",
+    "bacon":"git://github.com/Jon-Biz/bacon.js.git"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.7",
