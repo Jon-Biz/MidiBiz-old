@@ -2,7 +2,8 @@
 
 var MidiIO = angular.module('MidiIO',[]);
 
-MidiIO.config(function ($provide) {
+MidiIO.config(function () {
+	
 
 });
 
