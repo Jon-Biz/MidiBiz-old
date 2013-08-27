@@ -9,7 +9,8 @@
     "angular-sanitize": "~1.0.7",
     "jquery.ui": "",
     "jsplumb":"git://github.com/sporritt/jsPlumb.git",
-    "midiBridge":"git://github.com/Jon-Biz/MIDIBridge.git"
+    "midiBridge":"git://github.com/Jon-Biz/MIDIBridge.git",
+    "underscore":"~1.5.2"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.7",
