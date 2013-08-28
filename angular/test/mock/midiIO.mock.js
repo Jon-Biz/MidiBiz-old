@@ -1,11 +1,11 @@
 'use strict';
 
-var midiservicemock = {
-        inputs:[{
-                		name: "midi input 1",
-                }],
-        outputs:[]
-    };
+// mocks of global objects
+// 
+var jsPlumb = {ready:function(callback){}};
+
+var midiBridge = {init:function(callback){}};
+
 
 var MIDIAccess = {
 	enumerateInputs : function () {
@@ -30,6 +30,30 @@ var MIDIAccess = {
 	},
 }
 
-var jsPlumb = {ready:function(callback){}};
+//
+//
+//
 
-var midiBridge = {init:function(callback){}};
+var midiservicemock = {
+        inputs:[{
+                		name: "midi input 1",
+                }],
+        outputs:[]
+    };
+
+var note_on = {
+			CMD:'NOTE_ON',
+			CHAN:0,
+			NOTE:63,
+			VELOCITY:1,
+			TIME:856523000
+		};
+
+
+var note_off = {
+			CMD:'NOTE_OFF',
+			CHAN:0,
+			NOTE:63,
+			VELOCITY:1,
+			TIME:856523000
+		};
