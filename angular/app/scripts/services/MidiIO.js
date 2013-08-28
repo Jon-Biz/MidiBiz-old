@@ -43,17 +43,22 @@ MidiIO.factory('midiservice',function ($timeout) {
 					return (output.id == info.targetId);
 				});
 
-				outputdevice.unsubscribe = inputdevice.stream.subscribe(function(event){
+				outputdevice.unsubscribe[inputdevice.id] = inputdevice.stream.subscribe(function(event){
 					outputdevice.output(event.value());
 				})
 			});
 
 			jsPlumb.bind("connectionDetached", function(info) { 
 
+				var inputdevice = _.find(inputs,function(input){
+					return (input.id == info.sourceId);
+				});
+
 				var outputdevice = _.find(outputs,function(output){
 					return (output.id == info.targetId);
 				});
-				outputdevice.unsubscribe();
+
+				outputdevice.unsubscribe[inputdevice.id]();
 			});
 		});
 		
@@ -93,8 +98,9 @@ MidiIO.factory('midiservice',function ($timeout) {
 					'output' : function(note){
 						var midicommand = Midi.reparseMidiCMD(note.CMD)						
 						var midinote = MIDIAccess.createMIDIMessage(midicommand, 1, note.NOTE, note.VELOCITY)
-						MIDIAccess.getOutput(device).sendMIDIMessage(midinote);
-					}
+						MIDIAccess.getOutput(device).sendMIDIMessage(midinote)
+					},
+					'unsubscribe':{}
 				}
 
 				var midiMessage = ({CMD:'NOTE_ON',CHAN:1,NOTE:48,VELOCITY:100});
