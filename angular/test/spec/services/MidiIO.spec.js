@@ -15,15 +15,15 @@ var MidiService;
 	  expect(MidiService).toBeDefined();
 	});
 
-	describe('MidiService.getInputs', function() {
-	  it('should return an array', function() {
-	    expect(MidiService.getInputs() instanceof Array).toBeTruthy();
+	describe('MidiService.inputs', function() {
+	  it('should be an array', function() {
+	    expect(MidiService.inputs instanceof Array).toBeTruthy();
 	  });
 	});  
 
-	describe('MidiService.getOutputs', function() {
-	  it('should return an array', function() {
-	    expect(MidiService.getOutputs() instanceof Array).toBeTruthy();
+	describe('MidiService.outputs', function() {
+	  it('should be an array', function() {
+	    expect(MidiService.outputs instanceof Array).toBeTruthy();
 	  });
 	});  
 
