@@ -43,15 +43,17 @@ MidiIO.factory('midiservice',function ($timeout) {
 					return (output.id == info.targetId);
 				});
 
-				inputdevice.stream.onValue(function(note){
-					outputdevice.output(note);
+				outputdevice.unsubscribe = inputdevice.stream.subscribe(function(event){
+					outputdevice.output(event.value());
 				})
 			});
 
 			jsPlumb.bind("connectionDetached", function(info) { 
-				console.log('end connection!') 
-				console.log(info.sourceId);
-				console.log(info.targetId);
+
+				var outputdevice = _.find(outputs,function(output){
+					return (output.id == info.targetId);
+				});
+				outputdevice.unsubscribe();
 			});
 		});
 		
