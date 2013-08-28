@@ -9,29 +9,10 @@ MidiIO.config(function () {
 
 MidiIO.factory('midiservice',function ($timeout) {
 
-	jsPlumb.ready(function(){
-		jsPlumb.bind("connection", function(info) { 
-			console.log('connection!') 
-			console.log(info.sourceId);
-			console.log(info.targetId);
-		});
-
-		jsPlumb.bind("connectionDetached", function(info) { 
-			console.log('end connection!') 
-			console.log(info.sourceId);
-			console.log(info.targetId);
-		});
-	})
-
 	var inputs = [];
 	var outputs = [];
 
 	var Midi;
-
-	Midi = {
-		'inputs':inputs,
-		'outputs':outputs
-	};
 
 	function update_inputs (input) {
 		$timeout(function () {
@@ -46,42 +27,77 @@ MidiIO.factory('midiservice',function ($timeout) {
 	};
 
 	midiBridge.init(function(MIDIAccess){
+
+		var MIDIAccess = MIDIAccess;
+		var input = input;
+		var output = output;
+
+		jsPlumb.ready(function(){
+			jsPlumb.bind("connection", function(info) { 
+
+				var inputdevice = _.find(inputs,function(input){
+					return (input.id == info.sourceId);
+				})
+
+				var outputdevice = _.find(outputs,function(output){
+					return (output.id == info.targetId);
+				});
+
+				inputdevice.stream.onValue(function(note){
+					outputdevice.output(note);
+				})
+			});
+
+			jsPlumb.bind("connectionDetached", function(info) { 
+				console.log('end connection!') 
+				console.log(info.sourceId);
+				console.log(info.targetId);
+			});
+		});
 		
 		_.each(MIDIAccess.enumerateInputs(),function(device,index){
+			if(device.deviceName.match('AXIS')){
+				var id = 'input-'+index;
 
-			var id = 'input-'+index;
+				var streamin = Bacon.fromEventTarget(MIDIAccess.getInput(device),'midimessage');
 
-			var stream = Bacon.fromEventTarget(MIDIAccess.getInput(device),'midimessage');
+				var stream = new Bacon.EventStream(function(subscriber){
+					streamin.onValue(function(val){
+						var midiobj = Midi.msg_parse(val);
+						subscriber(new Bacon.Next(midiobj));
+					});
+					return function(){};
+				});
+					
+				var midiin = {
+					'id':id,
+					'name':device.deviceName,
+					'stream': stream
+				};
 
-			var midiin = {
-				'id':id,
-				'name':device.deviceName,
-				'stream': stream
-			};
-
-			stream.onValue(function(val){
-				console.log(val.toString());
-			})
-
-			update_inputs(midiin);
-
+				update_inputs(midiin);
+			}
 		});
 
 		_.each(MIDIAccess.enumerateOutputs(),function(device,index){
-			if(device.deviceName != "Microsoft GS Wavetable Synth"){
+			if(device.deviceName == 'loopMIDI Port'){
+//			if(device.deviceName != "Microsoft GS Wavetable Synth"){
 
 				var id = 'output-'+index;
 
 				var	midiout = {
 					'id':id,
 					'name':device.deviceName,
-					'output': MIDIAccess.getOutput(device)
+					'output' : function(note){
+						var midinote = MIDIAccess.createMIDIMessage(midiBridge.NOTE_ON, 1, note.NOTE, note.VELOCITY)
+						MIDIAccess.getOutput(device).sendMIDIMessage(midinote);
+					}
 				}
 
-				var midiMessage = MIDIAccess.createMIDIMessage(midiBridge.NOTE_ON, 1, 48, 100);
-				midiout.output.sendMIDIMessage(midiMessage);
+				var midiMessage = ({CMD:midiBridge.NOTE_ON,CHAN:1,NOTE:48,VELOCITY:100});
+				midiout.output(midiMessage);
 
-				update_outputs(midiout);
+				update_outputs(midiout);	
 
 			}
 
@@ -89,6 +105,84 @@ MidiIO.factory('midiservice',function ($timeout) {
 		});
 
 	});
+
+	Midi = {
+		'inputs':inputs,
+		'outputs':outputs,
+		msg_parse: function (msg) {
+
+			var parsedmsg = {};
+
+			var splitmsg = msg.toString().split(" ");
+
+			for (var i = splitmsg.length - 1; i >= 0; i--) {
+				var midiparam = splitmsg[i].split(":");
+				parsedmsg[midiparam[0]] = midiparam[1];
+			};
+
+			if(parsedmsg.CHAN){ parsedmsg.CHAN = parseInt(parsedmsg.CHAN);}
+			if(parsedmsg.NOTE){ parsedmsg.NOTE = parseInt(parsedmsg.NOTE);}
+			if(parsedmsg.VELOCITY){ parsedmsg.VELOCITY = parseInt(parsedmsg.VELOCITY);}
+			if(parsedmsg.TIME){ parsedmsg.TIME = parseInt(parsedmsg.TIME);}
+
+			return parsedmsg;
+
+		},
+		reparseMidiCMD:function(command){
+
+			console.log(command);
+			var midicommand;
+
+			switch(command)
+				{
+				case "NOTE_OFF":
+					midicommand = midiBridge.NOTE_OFF;
+			    case "NOTE_ON":
+		        	midicommand = midiBridge.NOTE_ON;
+		        case "POLY_PRESSURE":
+		        	midicommand = midiBridge.POLY_PRESSURE;
+		        case "CONTROL_CHANGE":
+		        	midicommand = midiBridge.CONTROL_CHANGE;
+		        case "PROGRAM_CHANGE":
+		        	midicommand = midiBridge.PROGRAM_CHANGE;
+		        case "CHANNEL_PRESSURE":
+		        	midicommand = midiBridge.CHANNEL_PRESSURE;
+		        case "PITCH_BEND":
+		        	midicommand = midiBridge.PITCH_BEND;
+		        case "SYSTEM_EXCLUSIVE":
+		        	midicommand = midiBridge.SYSTEM_EXCLUSIVE;
+		        case "MIDI_TIMECODE":
+		        	midicommand = midiBridge.MIDI_TIMECODE;
+		        case "SONG_POSITION":
+		        	midicommand = midiBridge.SONG_POSITION;
+		        case "SONG_SELECT":
+		        	midicommand = midiBridge.SONG_SELECT;
+		        case "TUNE_REQUEST":
+		        	midicommand = midiBridge.TUNE_REQUEST;
+		        case "EOX":
+		        	midicommand = midiBridge.EOX;
+		        case "TIMING_CLOCK":
+		        	midicommand = midiBridge.TIMING_CLOCK;
+		        case "START":
+		        	midicommand = midiBridge.START;
+		        case "CONTINUE":
+		        	midicommand = midiBridge.CONTINUE;
+		        case "STOP":
+		        	midicommand = midiBridge.STOP;
+		        case "ACTIVE_SENSING":
+		        	midicommand = midiBridge.ACTIVE_SENSING;
+		        case "SYSTEM_RESET":
+		        	midicommand = midiBridge.SYSTEM_RESET;	
+				}
+
+				return midicommand;
+		},
+		reparseMidi:function (noteobj) {
+			var CMD = this.reparseMidiCMD(noteobj.CMD);
+			MIDIAccess.createMIDIMessage(CMD,noteobj.CHAN,noteobj.NOTE,noteobj.VELOCITY);
+		}
+
+	};
 
 	return Midi;
 
