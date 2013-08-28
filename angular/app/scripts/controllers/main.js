@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('angularApp')
-  .controller('MainCtrl', ['$scope','midiservice', function ($scope,midiservice) {
+  .controller('MainCtrl', ['$scope','Midiputs', function ($scope,midiputs) {
 
-	$scope.midiInputs = midiservice.inputs;
-	$scope.midiOutputs = midiservice.outputs;
+	$scope.midiInputs = midiputs.inputs;
+	$scope.midiOutputs = midiputs.outputs;
 
     }]);

@@ -14,7 +14,7 @@ describe('Controller: MainCtrl', function () {
     scope = $rootScope.$new();
     MainCtrl = $controller('MainCtrl', {
       $scope: scope,
-      midiservice: midiservicemock
+      midiputs: midiservicemock
     });
   }));
 

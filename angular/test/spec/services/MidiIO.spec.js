@@ -7,7 +7,7 @@ var MidiService;
 	beforeEach(function() {
 		module('MidiIO');
 		inject(function($injector){
-			MidiService = $injector.get('midiservice');
+			MidiService = $injector.get('Midiputs');
 		});
 	});
 
