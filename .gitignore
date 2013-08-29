@@ -4,3 +4,4 @@ MidiRouter.sublime-project
 MidiRouter.sublime-workspace
 bower_components
 .tmp
+node_modules
