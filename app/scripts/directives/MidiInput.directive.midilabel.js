@@ -8,6 +8,7 @@
 
 angular.module('midiInput')
 	.directive('midiinputlabel',function(){
+
 		return{
 			restrict:'C',
 			template:'<div id="label-{{input.id}}">Midi Input:{{input.name}}</div>',

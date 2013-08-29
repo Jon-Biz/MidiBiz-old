@@ -1,8 +1,16 @@
-      <div ng-repeat="input in midiInputs" class="midiinputlabel"></div>
-<div class="hero-unit">
-      <div ng-repeat="input in midiInputs" class="midiinput"></div>
-      <div ng-repeat="output in midiOutputs" class='midioutput'></div>
+
+<div id="container">
+	<div id="inputs">
+	      <div ng-repeat="input in midiInputs" class="midiinputlabel" style="top:{{50*$index}} px;"></div>
+	</div>
+
+	<div class="hero-unit">
+	      <div ng-repeat="input in midiInputs" class="midiinput" style="top:{{50*$index}}px;"></div>
+	      <div ng-repeat="output in midiOutputs" class='midioutput' style="top:{{50*$index}}"></div>
+	</div>
+
+	<div id="outputs">
+		<div ng-repeat="output in midiOutputs" class='midioutputlabel' style="top:{{50*$index}}"></div>
+	</div>
+
 </div>
-
-
-      <div ng-repeat="output in midiOutputs" class='midioutputlabel'></div>

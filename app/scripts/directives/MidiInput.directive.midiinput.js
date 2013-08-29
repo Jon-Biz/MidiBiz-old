@@ -21,7 +21,6 @@ angular.module('midiInput',[])
 					jsPlumb.ready(function () {
 //TODO - replace with proper callback
 						window.setTimeout(function () {
-							jsPlumb.draggable(scope.input.id);
 							jsPlumb.addEndpoint(scope.input.id,{
 								endpoint:'Rectangle',
 								paintStyle:{ width:25, height:21, fillStyle:'#666' },
@@ -45,7 +44,6 @@ angular.module('midiInput',[])
 					jsPlumb.ready(function () {
 //TODO - replace with proper callback
 						window.setTimeout(function () {
-							jsPlumb.draggable(scope.output.id);
 							jsPlumb.addEndpoint(scope.output.id,{
 								endpoint:'Rectangle',
 								paintStyle:{ width:25, height:21, fillStyle:'#666' },

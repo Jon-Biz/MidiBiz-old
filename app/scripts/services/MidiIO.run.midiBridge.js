@@ -9,7 +9,7 @@ MidiIO.run(function ($timeout,Midiputs) {
 	midiBridge.init(function(MIDIAccess){
 		
 		_.each(MIDIAccess.enumerateInputs(),function(device,index){
-			if(device.deviceName.match('AXIS')){
+			//if(device.deviceName.match('AXIS')){
 				var id = 'input-'+index;
 
 				var streamin = Bacon.fromEventTarget(MIDIAccess.getInput(device),'midimessage');
@@ -29,12 +29,12 @@ MidiIO.run(function ($timeout,Midiputs) {
 				};
 
 				Midiputs.addInput(midiin);
-			}
+			//}
 		});
 
 		_.each(MIDIAccess.enumerateOutputs(),function(device,index){
-			if(device.deviceName === 'loopMIDI Port'){
-//			if(device.deviceName != "Microsoft GS Wavetable Synth"){
+//			if(device.deviceName === 'loopMIDI Port'){
+			if(device.deviceName != "Microsoft GS Wavetable Synth"){
 
 				var id = 'output-'+index;
 
