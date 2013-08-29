@@ -1,9 +1,8 @@
 MidiBiz
 =======
 
-<<<<<<< HEAD
 UPDATE: MidiBiz has now been completely written using Angular. Goodbye Backbone, hello Angular! (It may not be for long - there may be a use for backbone models and collections in future versions.)
-=======
+
 Midi Biz is a javascript-based midi stream manipulation and routing tool. It incorporates Abudan's [java-based midi-javascript interface](https://github.com/abudaan/midibridge-js). It initializes midi ports, and then accepts midi data stream, converting it into a [bacon.js](https://github.com/raimohanska/bacon.js) stream suitable for real-time manipulation in javascript.
 >>>>>>> 0fb1fb4c1a6e70e2e4999b8df65a5d3c8b2c68ed
 
