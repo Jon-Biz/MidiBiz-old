@@ -1,12 +1,10 @@
 
 'use strict';
+/* global _ , Bacon, midiBridge */
 
 var MidiIO = angular.module('MidiIO');
 
 MidiIO.run(function ($timeout,Midiputs) {
-
-	var inputs = Midiputs.inputs;
-	var outputs = Midiputs.outputs;
 
 	midiBridge.init(function(MIDIAccess){
 		
@@ -35,7 +33,7 @@ MidiIO.run(function ($timeout,Midiputs) {
 		});
 
 		_.each(MIDIAccess.enumerateOutputs(),function(device,index){
-			if(device.deviceName == 'loopMIDI Port'){
+			if(device.deviceName === 'loopMIDI Port'){
 //			if(device.deviceName != "Microsoft GS Wavetable Synth"){
 
 				var id = 'output-'+index;
@@ -43,18 +41,18 @@ MidiIO.run(function ($timeout,Midiputs) {
 				var	midiout = {
 					'id':id,
 					'name':device.deviceName,
-					'output' : function(unreparsed_note){
-						var note = Midiputs.msgReparse(unreparsed_note);	
-						var midinote = MIDIAccess.createMIDIMessage(note.CMD, 1, note.NOTE, note.VELOCITY)
-						MIDIAccess.getOutput(device).sendMIDIMessage(midinote)
+					'output' : function(unreparsedNote){
+						var note = Midiputs.msgReparse(unreparsedNote);
+						var midinote = MIDIAccess.createMIDIMessage(note.CMD, 1, note.NOTE, note.VELOCITY);
+						MIDIAccess.getOutput(device).sendMIDIMessage(midinote);
 					},
 					'unsubscribe':{}
-				}
+				};
 
 				var midiMessage = ({CMD:'NOTE_ON',CHAN:1,NOTE:48,VELOCITY:100});
 				midiout.output(midiMessage);
 
-				Midiputs.addOutput(midiout);	
+				Midiputs.addOutput(midiout);
 
 			}
 
