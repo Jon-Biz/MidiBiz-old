@@ -11,7 +11,8 @@
     "jsplumb":"git://github.com/sporritt/jsPlumb.git",
     "midiBridge":"git://github.com/Jon-Biz/MIDIBridge.git",
     "underscore":"~1.5.1",
-    "bacon":"git://github.com/Jon-Biz/bacon.js.git"
+    "bacon":"git://github.com/Jon-Biz/bacon.js.git",
+    "less.js":""
   },
   "devDependencies": {
     "angular-mocks": "~1.0.7",

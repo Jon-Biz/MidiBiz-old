@@ -1,0 +1,65 @@
+body {
+    background: #fafafa;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
+}
+
+@input: red;
+@output: blue;
+@IOwidth: 300px;
+
+#container{
+	margin: 50px auto 0 auto;
+	position: relative;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 30px;
+
+}
+
+#inputs{
+	position: absolute;
+	left:0;
+	width:@IOwidth;
+}
+
+.midiinputlabel{
+	background-color: @input;
+	width: auto;
+	text-align: right;
+	height:50px;
+}
+
+.midiinput{
+    background-color: yellow;
+    width:100px;
+    left:0px;
+    position:absolute;
+    text-align: left;
+	height:50px;
+
+}
+.midioutput{
+    background-color: @output;
+    border-style: double;
+    border-width: 5px;
+    border-color: black;
+    position:absolute;
+    right:0px;
+}
+
+
+.hero-unit {
+    left:@IOwidth;
+    width: 500px;
+    height:500px;
+    background-color: #eee;
+    border-radius: 6px;
+    position:relative;
+}
+
+.hero-unit h1 {
+    font-size: 60px;
+    line-height: 1;
+    letter-spacing: -1px;
+}
