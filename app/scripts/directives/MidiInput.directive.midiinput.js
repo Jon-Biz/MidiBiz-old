@@ -13,7 +13,7 @@ angular.module('midiInput',[])
 	.directive('midiinput',function(){
 		return{
 			restrict:'C',
-			template:'<div id="{{input.id}}">Input</div>',
+			template:'<div id="{{input.id}}"></div>',
 			replace:'false',
 			link:{
 				post: function($scope){
@@ -22,8 +22,9 @@ angular.module('midiInput',[])
 //TODO - replace with proper callback
 						window.setTimeout(function () {
 							jsPlumb.addEndpoint(scope.input.id,{
-								endpoint:'Rectangle',
-								paintStyle:{ width:25, height:21, fillStyle:'#666' },
+								endpoint:'Dot',
+								anchor:'Right',
+								paintStyle:{ width:10, height:10, fillStyle:'#666' },
 								connectorStyle : { strokeStyle:'#666' },
 								isSource:true
 							});
@@ -36,7 +37,7 @@ angular.module('midiInput',[])
 	.directive('midioutput',function(){
 		return{
 			restrict:'C',
-			template:'<div id="{{output.id}}">Output</div>',
+			template:'<div id="{{output.id}}"></div>',
 			replace:'false',
 			link:{
 				post: function($scope){
@@ -45,7 +46,8 @@ angular.module('midiInput',[])
 //TODO - replace with proper callback
 						window.setTimeout(function () {
 							jsPlumb.addEndpoint(scope.output.id,{
-								endpoint:'Rectangle',
+								endpoint:'Dot',
+								anchor:'Left',
 								paintStyle:{ width:25, height:21, fillStyle:'#666' },
 								connectorStyle : { strokeStyle:'#666' },
 								isTarget:true
