@@ -18,7 +18,7 @@ MidiIO.run(function ($timeout,Midiputs) {
 
 				var stream = new Bacon.EventStream(function(subscriber){
 					streamin.onValue(function(val){
-						var midiobj = Midiputs.msg_parse(val);
+						var midiobj = Midiputs.msgParse(val);
 						subscriber(new Bacon.Next(midiobj));
 					});
 					return function(){};
@@ -30,7 +30,7 @@ MidiIO.run(function ($timeout,Midiputs) {
 					'stream': stream
 				};
 
-				Midiputs.add_input(midiin);
+				Midiputs.addInput(midiin);
 			}
 		});
 
@@ -44,7 +44,7 @@ MidiIO.run(function ($timeout,Midiputs) {
 					'id':id,
 					'name':device.deviceName,
 					'output' : function(unreparsed_note){
-						var note = Midiputs.msg_reparse(unreparsed_note);	
+						var note = Midiputs.msgReparse(unreparsed_note);	
 						var midinote = MIDIAccess.createMIDIMessage(note.CMD, 1, note.NOTE, note.VELOCITY)
 						MIDIAccess.getOutput(device).sendMIDIMessage(midinote)
 					},
@@ -54,7 +54,7 @@ MidiIO.run(function ($timeout,Midiputs) {
 				var midiMessage = ({CMD:'NOTE_ON',CHAN:1,NOTE:48,VELOCITY:100});
 				midiout.output(midiMessage);
 
-				Midiputs.add_output(midiout);	
+				Midiputs.addOutput(midiout);	
 
 			}
 

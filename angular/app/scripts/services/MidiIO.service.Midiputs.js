@@ -8,19 +8,19 @@ MidiIO.service("Midiputs",function ($timeout) {
 	var inputs = this.inputs = [];
 	var outputs = this.outputs = [];
 
-	this.add_input = function (input) {
+	this.addInput = function (input) {
 		$timeout(function () {
 			inputs.push(input);
 		},100);
 	};
 
-	this.add_output = function(output) {
+	this.addOutput = function(output) {
 		$timeout(function () {
 			outputs.push(output);
 		},100);
 	};
 
-	this.msg_parse = function (msg) {
+	this.msgParse = function (msg) {
 
 		var parsedmsg = {};
 
@@ -40,7 +40,7 @@ MidiIO.service("Midiputs",function ($timeout) {
 
 	}
 
-	this.msg_reparse = function (noteobj) {
+	this.msgReparse = function (noteobj) {
 		noteobj.CMD = this.reparseMidiCMD(noteobj.CMD);
 		return noteobj;
 	};
