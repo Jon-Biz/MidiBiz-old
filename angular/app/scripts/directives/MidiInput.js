@@ -6,4 +6,4 @@
 * Description
 */
 
-angular.module('midiInput', []);
+//angular.module('midiInput', []);
