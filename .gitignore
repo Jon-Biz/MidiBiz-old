@@ -1,5 +1,4 @@
 .project
-node_modules
 dist
 MidiRouter.sublime-project
 MidiRouter.sublime-workspace
