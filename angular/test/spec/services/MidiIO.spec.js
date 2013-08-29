@@ -27,10 +27,10 @@ var MidiService;
 	  });
 	});  
 
-	describe("msg_parse", function() {
+	describe("msgParse", function() {
 	  
 	  it("should return an object literal", function() {
-	  	expect(MidiService.msg_parse("test") instanceof Object).toBeTruthy({});
+	  	expect(MidiService.msgParse("test") instanceof Object).toBeTruthy({});
 	  });
 
 		describe("when sent message CMD:NOTE_OFF CHAN:0 NOTE:64 VELOCITY:0 TIME:202845000", function() {
@@ -38,22 +38,22 @@ var MidiService;
 	  	var note = 'CMD:NOTE_OFF CHAN:0 NOTE:64 VELOCITY:0 TIME:202845000';
 
 	  	it("should return an object with a CMD value of NOTE_OFF ", function() {
-		  	var parseValue = MidiService.msg_parse(note);
+		  	var parseValue = MidiService.msgParse(note);
 
 	  		expect(parseValue.CMD).toEqual("NOTE_OFF");  
 	  	});
 	  	it("should return object with CHAN of 0", function() {
-			var parseValue = MidiService.msg_parse(note);
+			var parseValue = MidiService.msgParse(note);
 	  		expect(parseValue.CHAN).toEqual(0);
 	  	});
 
 	  	it("should return object with NOTE of 64", function() {
-			var parseValue = MidiService.msg_parse(note);
+			var parseValue = MidiService.msgParse(note);
 	  		expect(parseValue.NOTE).toEqual(64);
 	  	});
 
 	  	it("should return object with VELOCITY of 0", function() {
-			var parseValue = MidiService.msg_parse(note);
+			var parseValue = MidiService.msgParse(note);
 	  		expect(parseValue.VELOCITY).toEqual(0);
 	  	});
 	   
@@ -64,27 +64,27 @@ var MidiService;
 		  	var note = 'CMD:NOTE_ON CHAN:0 NOTE:63 VELOCITY:1 TIME:856523000 ';
 
 		  	it("should return an object with a CMD value of NOTE_OFF ", function() {
-			  	var parseValue = MidiService.msg_parse(note);
+			  	var parseValue = MidiService.msgParse(note);
 
 		  		expect(parseValue.CMD).toEqual("NOTE_ON");  
 		  	});
 		  	it("should return object with CHAN of 0", function() {
-				var parseValue = MidiService.msg_parse(note);
+				var parseValue = MidiService.msgParse(note);
 		  		expect(parseValue.CHAN).toEqual(0);
 		  	});
 
 		  	it("should return object with NOTE of 63", function() {
-				var parseValue = MidiService.msg_parse(note);
+				var parseValue = MidiService.msgParse(note);
 		  		expect(parseValue.NOTE).toEqual(63);
 		  	});
 
 		  	it("should return object with VELOCITY of 1", function() {
-				var parseValue = MidiService.msg_parse(note);
+				var parseValue = MidiService.msgParse(note);
 		  		expect(parseValue.VELOCITY).toEqual(1);
 		  	});
 
 		  	it("should return object with TIME of 856523000", function() {
-				var parseValue = MidiService.msg_parse(note);
+				var parseValue = MidiService.msgParse(note);
 		  		expect(parseValue.TIME).toEqual(856523000);
 		  	});
 			});

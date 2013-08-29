@@ -6,4 +6,4 @@ angular.module('angularApp')
 	$scope.midiInputs = midiputs.inputs;
 	$scope.midiOutputs = midiputs.outputs;
 
-    }]);
+}]);

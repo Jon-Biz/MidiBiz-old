@@ -1,4 +1,4 @@
 
 'use strict';
 
-var MidiIO = angular.module('MidiIO',[]);
+angular.module('MidiIO',[]);
