@@ -14,8 +14,9 @@ MidiIO.run(function ($timeout,Midiputs) {
 
 				var streamin = Bacon.fromEventTarget(MIDIAccess.getInput(device),'midimessage');
 
-				var stream = new Bacon.EventStream(function(subscriber){
+				var streamout = new Bacon.EventStream(function(subscriber){
 					streamin.onValue(function(val){
+						console.log('hit');
 						var midiobj = Midiputs.msgParse(val);
 						subscriber(new Bacon.Next(midiobj));
 					});
@@ -25,7 +26,7 @@ MidiIO.run(function ($timeout,Midiputs) {
 				var midiin = {
 					'id':id,
 					'name':device.deviceName,
-					'stream': stream
+					'streamout': streamout
 				};
 
 				Midiputs.addInput(midiin);
@@ -37,20 +38,29 @@ MidiIO.run(function ($timeout,Midiputs) {
 			if(device.deviceName != "Microsoft GS Wavetable Synth"){
 
 				var id = 'output-'+index;
+				var streamin = new Bacon.Bus();
+
+				streamin.onValue(function(val){
+					output(val);
+				})
+
+				var output = function(unreparsedNote){
+										console.log('trigger');
+					var note = Midiputs.msgReparse(unreparsedNote);
+					var midinote = MIDIAccess.createMIDIMessage(note.CMD, 1, note.NOTE, note.VELOCITY);
+					MIDIAccess.getOutput(device).sendMIDIMessage(midinote);
+				};
 
 				var	midiout = {
 					'id':id,
 					'name':device.deviceName,
-					'output' : function(unreparsedNote){
-						var note = Midiputs.msgReparse(unreparsedNote);
-						var midinote = MIDIAccess.createMIDIMessage(note.CMD, 1, note.NOTE, note.VELOCITY);
-						MIDIAccess.getOutput(device).sendMIDIMessage(midinote);
-					},
+					'output' : output,
+					'streamin':streamin,
 					'unsubscribe':{}
 				};
 
 				var midiMessage = ({CMD:'NOTE_ON',CHAN:1,NOTE:48,VELOCITY:100});
-				midiout.output(midiMessage);
+				midiout.streamin.push(midiMessage);
 
 				Midiputs.addOutput(midiout);
 

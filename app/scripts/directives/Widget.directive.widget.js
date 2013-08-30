@@ -12,6 +12,7 @@ angular.module('Widgets',[])
 					jsPlumb.ready(function(){
 						window.setTimeout(function(){
 							jsPlumb.draggable(scope.widget.id);
+
 							jsPlumb.addEndpoint(scope.widget.id,{
 								endpoint:'Dot',
 								anchor:'Right',
@@ -19,6 +20,7 @@ angular.module('Widgets',[])
 								connectorStyle : { strokeStyle:'#666' },
 								isSource:true
 							});
+							
 							jsPlumb.addEndpoint(scope.widget.id,{
 								endpoint:'Dot',
 								anchor:'Left',

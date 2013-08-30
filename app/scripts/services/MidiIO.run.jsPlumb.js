@@ -4,10 +4,10 @@
 
 var MidiIO = angular.module('MidiIO');
 
-MidiIO.run(function (Midiputs) {
+MidiIO.run(function (Puts) {
 
-	var inputs = Midiputs.inputs;
-	var outputs = Midiputs.outputs;
+	var inputs = Puts.inputs;
+	var outputs = Puts.outputs;
 	
 	jsPlumb.ready(function(){
 
@@ -18,12 +18,12 @@ MidiIO.run(function (Midiputs) {
 			});
 
 			var outputdevice = _.find(outputs,function(output){
+
 				return (output.id === info.targetId);
 			});
 
-			outputdevice.unsubscribe[inputdevice.id] = inputdevice.stream.subscribe(function(event){
-				outputdevice.output(event.value());
-			});
+			outputdevice.unsubscribe[inputdevice.id] = outputdevice.streamin.plug(inputdevice.streamout);
+
 		});
 
 		jsPlumb.bind('connectionDetached', function(info) {
@@ -33,6 +33,9 @@ MidiIO.run(function (Midiputs) {
 			});
 
 			var outputdevice = _.find(outputs,function(output){
+				console.log('checking '+output.id);
+				console.log('for '+info.targetId);
+
 				return (output.id === info.targetId);
 			});
 

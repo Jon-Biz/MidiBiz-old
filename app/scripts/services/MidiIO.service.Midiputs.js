@@ -4,7 +4,7 @@
 
 var MidiIO = angular.module('MidiIO');
 
-MidiIO.service('Midiputs',function ($timeout) {
+MidiIO.service('Midiputs',function ($timeout,Puts) {
 
 	this.inputs = [];
 	this.outputs = [];
@@ -13,6 +13,7 @@ MidiIO.service('Midiputs',function ($timeout) {
 		var inputs = this.inputs;
 		$timeout(function () {
 			inputs.push(input);
+			Puts.inputs.push(input);
 		},100);
 	};
 
@@ -20,6 +21,7 @@ MidiIO.service('Midiputs',function ($timeout) {
 		var outputs = this.outputs;
 		$timeout(function () {
 			outputs.push(output);
+			Puts.outputs.push(output);
 		},100);
 	};
 
@@ -32,6 +34,7 @@ MidiIO.service('Midiputs',function ($timeout) {
 		for (var i = splitmsg.length - 1; i >= 0; i--) {
 			var midiparam = splitmsg[i].split(':');
 			parsedmsg[midiparam[0]] = midiparam[1];
+			console.log(midiparam[0]+" "+midiparam[1]);
 		}
 
 		if(parsedmsg.CHAN){ parsedmsg.CHAN = parseInt(parsedmsg.CHAN,10);}

@@ -1,13 +1,10 @@
 'use strict';
 
 angular.module('angularApp')
-  .controller('MainCtrl', ['$scope','Midiputs', function ($scope,midiputs) {
+  .controller('MainCtrl', ['$scope','Midiputs', 'widgets',function ($scope,midiputs,widgets) {
 
 	$scope.midiInputs = midiputs.inputs;
 	$scope.midiOutputs = midiputs.outputs;
-	$scope.widgets = [{
-		id: "widget-1",
-		name:"midiwidget"
-	}];
+	$scope.widgets = widgets.widgets;
 
 }]);
