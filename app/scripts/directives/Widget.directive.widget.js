@@ -1,4 +1,5 @@
 'use strict';
+/* global jsPlumb */
 
 angular.module('Widgets',[])
 	.directive('widget',function () {
@@ -9,6 +10,7 @@ angular.module('Widgets',[])
 			link:{
 				post: function($scope){
 					var scope = $scope;
+
 					jsPlumb.ready(function(){
 						window.setTimeout(function(){
 							jsPlumb.draggable(scope.widget.id);
@@ -29,8 +31,8 @@ angular.module('Widgets',[])
 								isTarget:true
 							});
 						},100);
-					})
+					});
 				}
 			}
-		}
+		};
 	});

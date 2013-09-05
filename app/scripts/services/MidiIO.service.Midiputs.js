@@ -34,7 +34,7 @@ MidiIO.service('Midiputs',function ($timeout,Puts) {
 		for (var i = splitmsg.length - 1; i >= 0; i--) {
 			var midiparam = splitmsg[i].split(':');
 			parsedmsg[midiparam[0]] = midiparam[1];
-			console.log(midiparam[0]+" "+midiparam[1]);
+			console.log(midiparam[0]+' '+midiparam[1]);
 		}
 
 		if(parsedmsg.CHAN){ parsedmsg.CHAN = parseInt(parsedmsg.CHAN,10);}

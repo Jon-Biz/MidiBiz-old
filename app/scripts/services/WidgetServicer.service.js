@@ -1,13 +1,17 @@
 
+'use strict';
+
+/* global Bacon,_ */
+
 /**
 * WidgetServicer
 *
 * Delivers widgets
 */
 angular.module('WidgetServicer', [])
-	.service("widgets",function (Puts,$timeout) {
+	.service('widgets',function (Puts) {
 
-		widgetmaker = function(id, transpose){
+		var Widgetmaker = function(id, transpose){
 			var streamin = this.streamin = new Bacon.Bus();
 
 			this.streamout = new Bacon.EventStream(function(subscriber){
@@ -19,19 +23,20 @@ angular.module('WidgetServicer', [])
 					return function(){};
 				});
 
-			this.id= "widget"+id;
+			this.id= 'widget'+id;
 			this.transpose= transpose;
-			this.name="transpose:"+id;
-			this.unsubscribe={}
+			this.name='transpose:'+id;
+			this.unsubscribe={};
 
 			return this;
 
-		}
-
-		widgets = {widgets:[]}
-		for (var i = 1; i < 13; i++) {
-			widgets.widgets.push(new widgetmaker(i,i));
 		};
+
+		var widgets = {widgets:[]};
+
+		for (var i = 1; i < 13; i++) {
+			widgets.widgets.push(new Widgetmaker(i,i));
+		}
 
 		_.each(widgets.widgets,function(widget){
 
@@ -41,4 +46,4 @@ angular.module('WidgetServicer', [])
 			});
 
 		return widgets;
-	})
+	});
