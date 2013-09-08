@@ -42,7 +42,7 @@ angular.module('Puts')
 				var unsubscribe  = {};
 
 				var subscribe = function(inputdevice){
-					unsubscribe[inputdevice.id] = outputdevice.streamin.plug(inputdevice.streamout);
+					unsubscribe[inputdevice.id] = streamin.plug(inputdevice.streamout);
 				};
 
 				var Output = {
@@ -60,10 +60,12 @@ angular.module('Puts')
 			getOutputs:function(){
 				return Outputs;
 			},
-			getOutput:function(sourceId){
+			getOutput:function(targetId){
+
 				var Output = _.find(Outputs,function(output){
-					return (output.id === sourceId);
+					return (output.id === targetId);
 				});
+
 				return Output;
 			}
 		};

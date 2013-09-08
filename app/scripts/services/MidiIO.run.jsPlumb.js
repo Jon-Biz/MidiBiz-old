@@ -13,12 +13,8 @@ MidiIO.run(function (Inputs,Outputs) {
 
 		jsPlumb.bind('connection', function(info) {
 
-			console.log('connecting to -',info.sourceId)
-
 			var inputdevice = Inputs.getInput(info.sourceId);
-
-			var outputdevice = Outputs.getOutput(info.sourceId);
-
+			var outputdevice = Outputs.getOutput(info.targetId);
 			outputdevice.subscribe(inputdevice);
 
 		});
@@ -26,11 +22,7 @@ MidiIO.run(function (Inputs,Outputs) {
 		jsPlumb.bind('connectionDetached', function(info) {
 
 			var inputdevice = Inputs.getInput(info.sourceId);
-
-			var outputdevice = _.find(outputs,function(output){
-				return (output.id === info.targetId);
-			});
-
+			var outputdevice = Outputs.getOutput(info.targetId);
 			outputdevice.unsubscribe[inputdevice.id]();
 		});
 	});
