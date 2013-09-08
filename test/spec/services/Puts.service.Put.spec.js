@@ -2,7 +2,7 @@ describe("Input service", function() {
 	beforeEach(function() {
 		module('Puts');
 		inject(function($injector){
-			Puts = $injector.get('Input');
+			Puts = $injector.get('Inputs');
 		});
 	});
 
@@ -14,6 +14,8 @@ describe("Input service", function() {
 	});
 
 	describe("when getNewInput is called", function() {
+
+		var Input;
 
 		beforeEach(function() {
 			Input = new Puts.getNewInput('test');
@@ -38,14 +40,13 @@ describe("Input service", function() {
 
 	describe("when getNewInput is called twice", function() {
 
+		var Input0,Input1;
+
+
 		beforeEach(function() {
 			Input0 = new Puts.getNewInput('test');
 			Input1 = new Puts.getNewInput('test');
 		  
-		});
-
-		it("getNewInput should return an object with a name", function() {
-			expect(Input.name).toEqual('test');
 		});
 
 		it("getNewInput should return an object with an id of 'input-0' and one of 'input-1", function() {
@@ -56,11 +57,69 @@ describe("Input service", function() {
 
 		describe("getInputs()", function() {
 
-		  it("should return an array of length 1", function() {
+		  it("should return an array of length 2", function() {
 		    expect(Puts.getInputs().length).toEqual(2);
 		  });
 		});	  
 	});
 
+});
 
+describe("Output service", function() {
+	beforeEach(function() {
+		module('Puts');
+		inject(function($injector){
+			OutPuts = $injector.get('Outputs');
+		});
+	});
+
+	describe("when getNewOutput is called", function() {
+
+		var Output;
+
+		beforeEach(function() {
+			Output = new OutPuts.getNewOutput('test');
+		  
+		});
+
+		it("getNewOutput should return an object with a name", function() {
+			expect(Output.name).toEqual('test');
+		});
+
+		it("getNewOutput should return an object with an id of 'Output-0'", function() {
+			expect(Output.id).toEqual('Output-0');    
+		});
+
+		describe("getOutputs()", function() {
+
+		  it("should return an array of length 1", function() {
+		    expect(OutPuts.getOutputs().length).toEqual(1);
+		  });
+		});	  
+	});
+
+	describe("when getNewOutput is called twice", function() {
+
+		var Output0,Output1;
+
+
+		beforeEach(function() {
+			Output0 = new OutPuts.getNewOutput('test');
+			Output1 = new OutPuts.getNewOutput('test');
+		  
+		});
+
+		it("getNewOutput should return an object with an id of 'Output-0' and one of 'Output-1", function() {
+			expect(Output0.id).toEqual('Output-0');    
+			expect(Output1.id).toEqual('Output-1');    
+
+		});
+
+		describe("getOutputs()", function() {
+
+		  it("should return an array of length 2", function() {
+		    expect(OutPuts.getOutputs().length).toEqual(2);
+		  });
+		});	  
+	});
 });

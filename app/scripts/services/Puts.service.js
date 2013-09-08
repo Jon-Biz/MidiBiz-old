@@ -32,25 +32,53 @@ angular.module('Puts',[])
 			}
 		};
 	})
-	.service('Input',function(){
+	.service('Inputs',function(){
 
-		var	inputs = [];
-		var outputs = [];
+		var	Inputs = [];
 
 		return {
 			getInputs:function(){
-				return inputs;
+				return Inputs;
 			},
-			getNewInput:function(name){
+			getNewInput:function(name,streamout){
 
 				var Input = {
 					'name':name,
-					'id': 'input-'+inputs.length
+					'id': 'input-'+Inputs.length,
+					'streamout':streamout
 				} 
 
-				inputs.push(Input);
+				Inputs.push(Input);
 
 				return Input;
+			}
+		};
+	}).service('Outputs',function(){
+
+		var	Outputs = [];
+
+		return {
+			getOutputs:function(){
+				return Outputs;
+			},
+			getNewOutput:function(name,output){
+
+				var streamin = new Bacon.Bus();
+
+				streamin.onValue(function(val){
+					output(val);
+				});
+
+				var Output = {
+					'name':name,
+					'id': 'Output-'+Outputs.length,
+					'streamin':streamin,
+					'unsubscribe':{}
+				} 
+
+				Outputs.push(Output);
+
+				return Output;
 			}
 		};
 	});
