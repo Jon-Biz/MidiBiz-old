@@ -35,7 +35,13 @@ describe("Input service", function() {
 		  it("should return an array of length 1", function() {
 		    expect(Puts.getInputs().length).toEqual(1);
 		  });
-		});	  
+		});	
+
+		describe("getInput('input-0')", function() {
+		    it("should return the Input",function () {
+		    	expect(Puts.getInput('input-0')).toEqual(Input);
+		    })
+		});  
 	});
 
 	describe("when getNewInput is called twice", function() {
@@ -95,7 +101,14 @@ describe("Output service", function() {
 		  it("should return an array of length 1", function() {
 		    expect(OutPuts.getOutputs().length).toEqual(1);
 		  });
-		});	  
+		});
+
+		describe("getOutput('Output-0')", function() {
+		    it("should return the Output",function () {
+		    	expect(OutPuts.getOutput('Output-0')).toEqual(Output);
+		    })
+		});  
+	  
 	});
 
 	describe("when getNewOutput is called twice", function() {
@@ -115,7 +128,7 @@ describe("Output service", function() {
 
 		});
 
-		describe("getOutputs()", function() {
+		xdescribe("getOutputs()", function() {
 
 		  it("should return an array of length 2", function() {
 		    expect(OutPuts.getOutputs().length).toEqual(2);

@@ -4,9 +4,6 @@ angular.module('Puts')
 		var	Inputs = [];
 
 		return {
-			getInputs:function(){
-				return Inputs;
-			},
 			getNewInput:function(name,streamout){
 
 				var Input = {
@@ -18,33 +15,55 @@ angular.module('Puts')
 				Inputs.push(Input);
 
 				return Input;
+			},
+			getInputs:function(){
+				return Inputs;
+			},
+			getInput:function(sourceId){
+				var input = _.find(Inputs,function(input){
+					return (input.id === sourceId);
+				});
+				return input;
 			}
+
 		};
 	}).service('Outputs',function(){
 
 		var	Outputs = [];
 
 		return {
-			getOutputs:function(){
-				return Outputs;
-			},
 			getNewOutput:function(name,output){
 
-				var streamin = new Bacon.Bus();
-
+				var streamin = new Bacon.Bus()
 				streamin.onValue(function(val){
-					output(val);
-				});
+						output(val);
+					});
+				
+				var unsubscribe  = {};
+
+				var subscribe = function(inputdevice){
+					unsubscribe[inputdevice.id] = outputdevice.streamin.plug(inputdevice.streamout);
+				};
 
 				var Output = {
 					'name':name,
 					'id': 'Output-'+Outputs.length,
 					'streamin':streamin,
-					'unsubscribe':{}
+					'subscribe': subscribe,
+					'unsubscribe':unsubscribe
 				} 
 
 				Outputs.push(Output);
 
+				return Output;
+			},
+			getOutputs:function(){
+				return Outputs;
+			},
+			getOutput:function(sourceId){
+				var Output = _.find(Outputs,function(output){
+					return (output.id === sourceId);
+				});
 				return Output;
 			}
 		};
