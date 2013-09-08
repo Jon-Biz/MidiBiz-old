@@ -1,49 +1,47 @@
 describe("MidiIO config", function() {
   var Midiputs;
   var MidiService;
+  var $timeout_;
 
-  beforeEach(function() {
+  beforeEach(function($provider) {
+
+  	module('Puts');
 	module('MidiIO');
-	inject(function($injector){
-		Midiputs = $injector.get('Midiputs');
+	inject(function($injector,$timeout,Puts){
+		Midiputs = $injector.get('Midiputs',$timeout,Puts);
+
+		$timeout_ =$injector.get('$timeout');
+
 	});
   });
 
 	describe("Midiputs", function() {
-		it("should be an object",function() {
-		  expect(Midiputs instanceof Object).toBeTruthy();
-		});
 
-		it("should be a singleton", function() {
-		  Midiputs.inputs.push('test');
-		  var Midival2
-		  inject(function ($injector) {
-			  Midival2 = $injector.get('Midiputs');
-		  });
-		  expect(Midival2).toEqual(Midiputs);
-		});
+		it("should be an object containing an 'input' array and an 'output' array", function() {
 
-		describe("Midiputs.inputs", function() {
+		    expect(Midiputs instanceof Object).toBeTruthy();
+		    expect(Midiputs.inputs instanceof Array).toBeTruthy();
+		    expect(Midiputs.outputs instanceof Array).toBeTruthy();
 
-			it("should be an array", function() {
-			  expect(Midiputs.inputs instanceof Array).toBeTruthy();
-			});
+		   });
 
-		});
-
-		describe("Midiputs.addinput()", function() {
-		  beforeEach(function() {
-		    jasmine.Clock.useMock();
-		  });
-
-		  //delayed until mock clock works in karma
-		  xit("should add an input after 100ms", function() {
-		    Midiputs.add_input("1");
-
+		describe("addInput()", function() {
+		  it("should add an input to the input array after the timeout is flushed", function() {
+		    
+		    Midiputs.addInput({'testinput':'test'});
 		    expect(Midiputs.inputs.length).toEqual(0);
-		    jasmine.Clock.tick(201);
+		    $timeout_.flush();
 		    expect(Midiputs.inputs.length).toEqual(1);
 		  });
+
+		  it("should add an output to the output array after the timeout is flushed", function() {
+		    
+		    Midiputs.addOutput({'testoutput':'test'});
+		    expect(Midiputs.outputs.length).toEqual(0);
+		    $timeout_.flush();
+		    expect(Midiputs.outputs.length).toEqual(1);
+		  });
 		});
+
 	});
 });
