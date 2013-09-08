@@ -10,8 +10,6 @@ MidiIO.run(function ($timeout,Midiputs,Inputs,Outputs) {
 		
 		_.each(MIDIAccess.enumerateInputs(),function(device,index){
 
-			var id = 'input-'+index;
-
 			var input = Bacon.fromEventTarget(MIDIAccess.getInput(device),'midimessage');
 
 			var streamout = new Bacon.EventStream(function(subscriber){
