@@ -4,28 +4,11 @@
 
 var MidiIO = angular.module('MidiIO');
 
-MidiIO.service('Midiputs',function ($timeout,Puts) {
+MidiIO.factory('Midiputs',function ($timeout,IOFactory) {
 
-	this.inputs = [];
-	this.outputs = [];
+	var IO = new IOFactory.getPuts();
 
-	this.addInput = function (input) {
-		var inputs = this.inputs;
-		$timeout(function () {
-			inputs.push(input);
-			Puts.inputs.push(input);
-		},100);
-	};
-
-	this.addOutput = function(output) {
-		var outputs = this.outputs;
-		$timeout(function () {
-			outputs.push(output);
-			Puts.outputs.push(output);
-		},100);
-	};
-
-	this.msgParse = function (msg) {
+	IO.msgParse = function (msg) {
 
 		var parsedmsg = {};
 
@@ -46,12 +29,12 @@ MidiIO.service('Midiputs',function ($timeout,Puts) {
 
 	};
 
-	this.msgReparse = function (noteobj) {
+	IO.msgReparse = function (noteobj) {
 		noteobj.CMD = this.reparseMidiCMD(noteobj.CMD);
 		return noteobj;
 	};
 
-	this.reparseMidiCMD = function(command){
+	IO.reparseMidiCMD = function(command){
 
 		var midicommand;
 
@@ -118,4 +101,6 @@ MidiIO.service('Midiputs',function ($timeout,Puts) {
 
 		return midicommand;
 	};
+
+	return IO;
 });
