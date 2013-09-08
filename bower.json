@@ -7,12 +7,13 @@
     "angular-resource": "~1.0.7",
     "angular-cookies": "~1.0.7",
     "angular-sanitize": "~1.0.7",
-    "jquery.ui": "",
+    "jquery.ui": "~1.10.3",
     "jsplumb":"git://github.com/sporritt/jsPlumb.git",
     "midiBridge":"git://github.com/Jon-Biz/MIDIBridge.git",
     "underscore":"~1.5.1",
-    "bacon":"git://github.com/Jon-Biz/bacon.js.git",
+    "angular-bacon":"~1.0.0",
     "less.js":""
+
   },
   "devDependencies": {
     "angular-mocks": "~1.0.7",
