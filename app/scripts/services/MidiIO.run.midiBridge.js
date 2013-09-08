@@ -32,7 +32,6 @@ MidiIO.run(function ($timeout,Midiputs,Inputs,Outputs) {
 			if(device.deviceName !== 'Microsoft GS Wavetable Synth'){
 
 				var output = function(unreparsedNote){
-					console.log('trigger');
 					var note = Midiputs.msgReparse(unreparsedNote);
 					var midinote = MIDIAccess.createMIDIMessage(note.CMD, 1, note.NOTE, note.VELOCITY);
 					MIDIAccess.getOutput(device).sendMIDIMessage(midinote);
