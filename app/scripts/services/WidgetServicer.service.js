@@ -16,7 +16,6 @@ angular.module('WidgetServicer', [])
 
 			this.streamout = new Bacon.EventStream(function(subscriber){
 					streamin.onValue(function(val){
-						console.log('shitfuck', val.NOTE);
 						val.NOTE = val.NOTE + transpose;
 						subscriber(new Bacon.Next(val));
 					});
