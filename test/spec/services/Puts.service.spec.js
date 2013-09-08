@@ -1,4 +1,4 @@
-xdescribe("the IOFactory", function() {
+describe("the IOFactory", function() {
 	var IOFactory;
 	var $timeout;
 
@@ -15,7 +15,7 @@ xdescribe("the IOFactory", function() {
 		var TestPuts;
 
 		beforeEach(function() {
-	  	  	TestPuts = new IOFactory.getInputs();
+	  	  	TestPuts = new IOFactory.getPuts();
 
 		});
 

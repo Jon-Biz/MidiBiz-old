@@ -11,7 +11,7 @@ angular.module('Puts',[])
 	})
 	.service('IOFactory',function($timeout){
 		return{
-			getInputs:function(){
+			getPuts:function(){
 				this.inputs = [];
 				this.outputs = [];
 
