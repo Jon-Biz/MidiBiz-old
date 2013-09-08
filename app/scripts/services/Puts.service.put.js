@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('Puts')
 	.service('Inputs',function(){
 
