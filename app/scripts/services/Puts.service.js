@@ -41,12 +41,15 @@ angular.module('Puts',[])
 			getInputs:function(){
 				return inputs;
 			},
-			getnewInput:function(name){
+			getNewInput:function(name){
 
 				var Input = {
-					'name':name
+					'name':name,
+					'id': 'input-'+inputs.length
 				} 
+
 				inputs.push(Input);
+
 				return Input;
 			}
 		};
