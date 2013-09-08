@@ -4,7 +4,7 @@
 
 var MidiIO = angular.module('MidiIO');
 
-MidiIO.factory('Midiputs',function ($timeout,IOFactory) {
+MidiIO.factory('Midiputs',function (IOFactory) {
 
 	var IO = new IOFactory.getPuts();
 
