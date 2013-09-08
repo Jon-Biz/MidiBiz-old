@@ -31,4 +31,23 @@ angular.module('Puts',[])
 
 			}
 		};
+	})
+	.service('Input',function(){
+
+		var	inputs = [];
+		var outputs = [];
+
+		return {
+			getInputs:function(){
+				return inputs;
+			},
+			getnewInput:function(name){
+
+				var Input = {
+					'name':name
+				} 
+				inputs.push(Input);
+				return Input;
+			}
+		};
 	});
