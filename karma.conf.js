@@ -18,6 +18,7 @@ module.exports = function(config) {
       'app/bower_components/underscore/underscore.js',
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
+      'app/bower_components/sinon/lib/sinon.js',
       'app/scripts/*.js',
       'app/scripts/services/*.js',
       'app/scripts/services/**/*.js',
@@ -41,7 +42,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: false,
 
 
     // Start these browsers, currently available:
