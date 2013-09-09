@@ -10,16 +10,16 @@ angular.module('Puts')
 
 				this.addInput = function (input) {
 					var inputs = this.inputs;
-					//$timeout(function () {
+					$timeout(function () {
 						inputs.push(input);
-					//},100);
+					},100);
 				};
 
 				this.addOutput = function(output) {
 					var outputs = this.outputs;
-					//$timeout(function () {
+					$timeout(function () {
 						outputs.push(output);
-					//},100);
+					},100);
 				};
 
 			}

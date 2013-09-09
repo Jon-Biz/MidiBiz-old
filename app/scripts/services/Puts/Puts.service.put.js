@@ -71,4 +71,12 @@ angular.module('Puts')
 				return Output;
 			}
 		};
-	})
+	}).service('Puts',function () {
+
+		var puts = {
+
+			inputs:[],
+			output:[]
+		}
+		return puts;
+	});

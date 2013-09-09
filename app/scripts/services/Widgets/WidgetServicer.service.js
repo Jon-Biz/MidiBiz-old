@@ -11,6 +11,8 @@
 angular.module('WidgetServicer', [])
 	.service('widgets',function (Puts) {
 
+		var inputs = [];
+		var outputs = [];
 		var Widgetmaker = function(id, transpose){
 			var streamin = this.streamin = new Bacon.Bus();
 
@@ -39,10 +41,22 @@ angular.module('WidgetServicer', [])
 
 		_.each(widgets.widgets,function(widget){
 
-				Puts.inputs.push(widget);
-				Puts.outputs.push(widget);
+				inputs.push(widget);
+				outputs.push(widget);
 
 			});
 
 		return widgets;
-	});
+	})
+	.factory('widget',function(){
+
+		this.inputs = [];
+		this.outputs = [];
+		this.internal = {
+			inputs:[],
+			outputs:[],
+			widgets:[]
+		}
+		return this;
+
+	});;

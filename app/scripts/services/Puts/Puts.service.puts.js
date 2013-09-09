@@ -1,8 +1,9 @@
 
 'use strict';
 
-angular.module('Puts')
-	.service('Puts',function () {
+var Puts = angular.module('Puts');
+
+Puts.service('Puts',function () {
 
 		var puts = {
 
