@@ -26,21 +26,6 @@ describe("the IOFactory", function() {
 		    expect(TestPuts.outputs instanceof Array).toBeTruthy();
 		});
 
-		describe("addInput()", function() {
-		  it("should add an input to the input array", function() {
-		    
-		    TestPuts.addInput({'testinput':'test'});
-		    expect(TestPuts.inputs.length).toEqual(1);
-		  });
-
-		  it("should add an output to the output array", function() {
-		    
-		    TestPuts.addOutput({'testoutput':'test'});
-		    expect(TestPuts.outputs.length).toEqual(1);
-		  });
-
-		});
-
 	});
 	  
 });
