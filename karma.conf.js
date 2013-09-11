@@ -19,6 +19,12 @@ module.exports = function(config) {
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/sinon/lib/sinon.js',
+      'app/bower_components/sinon/lib/sinon/call.js',
+      'app/bower_components/sinon/lib/sinon/spy.js',
+
+      'app/bower_components/sinon/lib/sinon/stub.js',
+
+      'app/bower_components/jasmine-sinon/lib/jasmine-sinon.js',
       'app/scripts/*.js',
       'app/scripts/services/*.js',
       'app/scripts/services/**/*.js',
