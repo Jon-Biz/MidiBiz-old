@@ -1,4 +1,4 @@
-describe("Widget Service", function() {
+xdescribe("Widget Service", function() {
 
 	var widget;
  	beforeEach(function() {
@@ -11,7 +11,7 @@ describe("Widget Service", function() {
 		);
 	});
 
-	it("should contain inputs, outputs, int_inputs, int_outputs arrays", function() {
+	xit("should contain inputs, outputs, int_inputs, int_outputs arrays", function() {
 
 		expect(widget.inputs instanceof Array).toBeTruthy();			
 		expect(widget.outputs instanceof Array).toBeTruthy();			
@@ -20,4 +20,5 @@ describe("Widget Service", function() {
 		expect(widget.internal.widgets instanceof Array).toBeTruthy();
 	});
 
+	
 });

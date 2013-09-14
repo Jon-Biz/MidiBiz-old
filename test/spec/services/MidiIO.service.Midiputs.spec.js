@@ -1,4 +1,4 @@
-describe("MidiIO config", function() {
+xdescribe("MidiIO config", function() {
   var Midiputs;
   var MidiService;
   var $timeout_;

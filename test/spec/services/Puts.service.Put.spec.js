@@ -1,4 +1,5 @@
 describe("Input service", function() {
+	var Puts
 	beforeEach(function() {
 		module('Puts');
 		inject(function($injector){
