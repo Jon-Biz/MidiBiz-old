@@ -4,9 +4,9 @@
 
 var MidiIO = angular.module('MidiIO');
 
-MidiIO.factory('Midiputs',function (IOFactory) {
+MidiIO.factory('Midiputs',function (PutService) {
 
-	var IO = new IOFactory.getPuts();
+	var IO = new PutService.getNewPutsCollection();
 
 	IO.msgParse = function (msg) {
 

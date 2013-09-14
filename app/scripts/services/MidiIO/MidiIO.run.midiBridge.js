@@ -4,7 +4,7 @@
 
 var MidiIO = angular.module('MidiIO');
 
-MidiIO.run(function ($timeout,Midiputs,Inputs,Outputs) {
+MidiIO.run(function ($timeout,Midiputs) {
 
 	midiBridge.init(function(MIDIAccess){
 		
@@ -20,9 +20,8 @@ MidiIO.run(function ($timeout,Midiputs,Inputs,Outputs) {
 				return function(){};
 			});
 
-			var midiIn = new Inputs.getNewInput(device.DeviceName,streamout);
+			var midiIn = new Midiputs.getNewInput(device.DeviceName,streamout);
 				
-			Midiputs.addInput(midiIn);
 		});
 
 		_.each(MIDIAccess.enumerateOutputs(),function(device,index){
@@ -35,13 +34,12 @@ MidiIO.run(function ($timeout,Midiputs,Inputs,Outputs) {
 					MIDIAccess.getOutput(device).sendMIDIMessage(midinote);
 				};
 
-				var midiOut = new Outputs.getNewOutput(device.DeviceName,output);
+				var midiOut = new Midiputs.getNewOutput(device.DeviceName,output);
 
 				var midiMessage = ({CMD:'NOTE_ON',CHAN:1,NOTE:48,VELOCITY:100});
 				midiOut.streamin.push(midiMessage);
 
 
-				Midiputs.addOutput(midiOut);
 
 			}
 

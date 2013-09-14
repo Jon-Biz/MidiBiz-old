@@ -9,7 +9,7 @@
 * Delivers widgets
 */
 angular.module('WidgetServicer', [])
-	.service('widgets',function (Puts) {
+	.service('widgets',function () {
 
 		var inputs = [];
 		var outputs = [];
@@ -59,4 +59,4 @@ angular.module('WidgetServicer', [])
 		}
 		return this;
 
-	});;
+	});

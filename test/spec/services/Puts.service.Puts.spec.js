@@ -5,7 +5,7 @@ describe("Puts service", function() {
 	var mockInputs;
 
 	beforeEach(function() {
-		module('OnPuts');
+		module('Puts');
 
 		inject(function($injector){
 			PutService = $injector.get("PutService");
