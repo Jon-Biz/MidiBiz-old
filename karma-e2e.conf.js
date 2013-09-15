@@ -11,6 +11,20 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'app/bower_components/bacon/dist/Bacon.js',
+      'app/bower_components/jquery/jquery.js',
+      'app/bower_components/jquery.ui/dist/jquery-ui.js',
+      'app/bower_components/jsplumb/dist/js/jquery.jsPlumb-1.5.2.js',
+      'app/bower_components/underscore/underscore.js',
+      
+      'app/scripts/app.js',
+      'app/scripts/services/*.js',
+      'app/scripts/services/**/*.js',
+      'app/scripts/directives/*.js',
+      'app/scripts/directives/**/*.js',
+      'app/scripts/controllers/*.js',
+      'app/scripts/controllers/**/*.js',
+
       'test/e2e/**/*.js'
     ],
 
@@ -18,7 +32,7 @@ module.exports = function(config) {
     exclude: [],
 
     // web server port
-    port: 8080,
+    port: 8081,
 
     // level of logging
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
@@ -42,13 +56,13 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: false,
 
     // Uncomment the following lines if you are using grunt's server to run the tests
-    // proxies: {
-    //   '/': 'http://localhost:9000/'
-    // },
-    // URL root prevent conflicts with the site root
-    // urlRoot: '_karma_'
+    proxies: {
+      '/': 'http://localhost:9000/'
+    },
+    //URL root prevent conflicts with the site root
+    urlRoot: '_karma_'
   });
 };
