@@ -33,11 +33,29 @@ describe("Puts service", function() {
 
 		describe("getNewInput('test','') called on it", function() {
 
-			var input;
+			var Input;
 
 			beforeEach(function() {
-				input = Puts.getNewInput('test','');			  
+				Input = Puts.getNewInput('test','');			  
 			});
+
+			describe("getNewInput should return an object ", function() {
+
+				it("with a name", function() {
+					expect(Input.name).toEqual('test');
+				});
+
+				it("with an id of 'input-0'", function() {
+					expect(Input.id).toEqual('input-0');    
+				});
+			  
+			});
+
+			describe("getInput('input-0')", function() {
+			    it("should return the Input",function () {
+			    	expect(Puts.getInput('input-0')).toEqual(Input);
+			    })
+			});  
 
 			it("should add one to the length of the Puts.inputs", function() {
 				expect(Puts.Inputs.length).toEqual(1);
@@ -51,33 +69,77 @@ describe("Puts service", function() {
 				expect(Puts.Inputs[0].name).toEqual('test');
 			});
 
-			it("should call Inputs.getNewInput()", function() {
-				var input = Puts.getNewInput();
-			});
-
 			describe("getInput('input-0' called on it", function() {
 			  it("should return the input we created", function() {
-			    expect(Puts.getInput('input-0')).toEqual(input);
+			    expect(Puts.getInput('input-0')).toEqual(Input);
 			  });
 			});
 
 			describe("and PutService.getInput('input-0')", function() {
 			  it("should return the input we created", function() {
-			    expect(PutService.getInput('input-0')).toEqual(input);
+			    expect(PutService.getInput('input-0')).toEqual(Input);
 			  });
 			});
 
 	  	});
 
-		describe("getNewOutput('test','') called on it", function() {
+		describe("when getNewInput is called twice", function() {
 
-			var output;
+			var Input0,Input1;
+
 
 			beforeEach(function() {
-				output = Puts.getNewOutput('test','');			  
+				Input0 = new Puts.getNewInput('test');
+				Input1 = new Puts.getNewInput('test');
+			  
 			});
 
-			it("should add one to the length of the Puts.Outputs", function() {
+			it("getNewInput should return an object with an id of 'input-0' and one of 'input-1", function() {
+				expect(Input0.id).toEqual('input-0');    
+				expect(Input1.id).toEqual('input-1');    
+
+			});
+
+			describe("Puts.Inputs", function() {
+
+			  it("should be length 2", function() {
+			    expect(Puts.Inputs.length).toEqual(2);
+			  });
+			});	  
+		});
+
+		describe("getNewOutput('test','') called on it", function() {
+
+			var Output;
+
+			beforeEach(function() {
+				Output = Puts.getNewOutput('test','');			  
+			});
+
+
+			it("getNewOutput should return an object with a name", function() {
+				expect(Output.name).toEqual('test');
+			});
+
+			it("getNewOutput should return an object with an id of 'Output-0'", function() {
+				expect(Output.id).toEqual('Output-0');    
+			});
+
+			describe("Puts.Outputs", function() {
+
+			  it("should be an array of length 1", function() {
+			    expect(Puts.Outputs instanceof Array).toBeTruthy();
+			    expect(Puts.Outputs.length).toEqual(1);
+			  });
+			});
+
+			describe("getOutput('Output-0')", function() {
+			    it("should return the Output",function () {
+			    	expect(Puts.getOutput('Output-0')).toEqual(Output);
+			    })
+			});  
+		  
+		it("should add one to the length of the Puts.Outputs", function() {
 				expect(Puts.Outputs.length).toEqual(1);
 			});
 
@@ -89,23 +151,45 @@ describe("Puts service", function() {
 				expect(Puts.Outputs[0].name).toEqual('test');
 			});
 
-			it("should call Outputs.getNewOutput()", function() {
-				var Output = Puts.getNewOutput();
-			});
-
 			describe("getOutput('Output-0' called on it", function() {
 			  it("should return the Output we created", function() {
-			    expect(Puts.getOutput('Output-0')).toEqual(output);
+			    expect(Puts.getOutput('Output-0')).toEqual(Output);
 			  });
 			});
 
 			describe("and PutService.getOutput('Output-0')", function() {
 			  it("should return the Output we created", function() {
-			    expect(PutService.getOutput('Output-0')).toEqual(output);
+			    expect(PutService.getOutput('Output-0')).toEqual(Output);
 			  });
 			});
 
 	  	});
+
+		describe("when getNewOutput is called twice", function() {
+
+			var Output0,Output1;
+
+
+			beforeEach(function() {
+				Output0 = new Puts.getNewOutput('test');
+				Output1 = new Puts.getNewOutput('test');
+			  
+			});
+
+			it("getNewOutput should return an object with an id of 'Output-0' and one of 'Output-1", function() {
+				expect(Output0.id).toEqual('Output-0');    
+				expect(Output1.id).toEqual('Output-1');    
+
+			});
+
+			xdescribe("Puts.Outputs", function() {
+
+			  it("should have a length of 2", function() {
+			    expect(Puts.getputs().length).toEqual(2);
+			  });
+			});	  
+		});
+		
 
 	});
 
