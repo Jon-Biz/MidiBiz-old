@@ -19,16 +19,20 @@ describe("Puts service", function() {
 		  expect(PutService.Outputs instanceof Array).toBeTruthy();
 		});
 
-		describe(".addInput('test',{},1')", function() {
+		xdescribe(".addInput({'name':'test','streamout':{},'id':'1'})", function() {
 			var Input;
 
 			beforeEach(function() {
-			  Input = PutService.addInput('test',{},1);	
+			  Input = PutService.addInput({'name':'test','streamout':{},'id':'1'});	
 			});
 			
 		  it("should make the Inputs array should be length 1", function() {
 		   expect(PutService.Inputs.length).toEqual(1);
 		  });
+
+		  it("should create an Input with name of 'test'",function(){
+		  	expect(Input.name).toEqual('test');
+		  })
 		});
 
 		describe(".addOutput('test',{},1')", function() {
@@ -73,6 +77,10 @@ describe("Puts service", function() {
 			
 		  it("should make the PutService Inputs array should be length 1", function() {
 		   expect(PutService.Inputs.length).toEqual(1);
+		  });
+
+		  it("should add an Input, name 'test' to the PutService", function() {
+		    expect(PutService.Inputs[0].name).toEqual('test');
 		  });
 		});
 
@@ -153,6 +161,22 @@ describe("Puts service", function() {
 			});	  
 		});
 
+		describe(".addOutput('test',{},1')", function() {
+			var Output;
+
+			beforeEach(function() {
+			  Output = Puts.addOutput('test',{},1);	
+			});
+			
+		  it("should make the PutService Outputs array should be length 1", function() {
+		   expect(PutService.Outputs.length).toEqual(1);
+		  });
+
+		  it("should add an Output, name 'test' to the PutService", function() {
+		    expect(PutService.Outputs[0].name).toEqual('test');
+		  });
+		});
+
 		describe("getNewOutput('test','') called on it", function() {
 
 			var Output;
@@ -227,10 +251,10 @@ describe("Puts service", function() {
 
 			});
 
-			xdescribe("Puts.Outputs", function() {
+			describe("Puts.Outputs", function() {
 
 			  it("should have a length of 2", function() {
-			    expect(Puts.getputs().length).toEqual(2);
+			    expect(Puts.Outputs.length).toEqual(2);
 			  });
 			});	  
 		});
