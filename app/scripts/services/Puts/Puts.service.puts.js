@@ -2,92 +2,98 @@
 'use strict';
 
 angular.module('Puts')
-	.value('Input',function(name,streamout,id){
-		this.name = name;
-		this.id = 'Input-'+id;
-		this.streamout = streamout;
+	.factory('PutService',function(){
 
-		return this;
+		function Input (name,id) {
+			this.name = name;
+			this.id = id;
+			this.$$streamout = new Bacon.Bus();
 
-	})
-	.value('Output',function(name,output,id){
-
-		this.name = name;
-		this.id = 'Output-'+id;
-
-		this.streamin = new Bacon.Bus();
-
-		this.streamin.onValue(function(val){
-				output(val);
-			});
-		
-		this.unsubscribe  = {};
-
-		this.subscribe = function(inputdevice){
-			unsubscribe[inputdevice.id] = streamin.plug(inputdevice.streamout);
-		};
-
-		return this;
-
-	})
-	.value('PutsCollection',function(masterPuts){
-		var Inputs = this.Inputs =[];
-		var Outputs = this.Outputs =[];
-
-		this.addInput = function (name, streamout, id) {
-			var input = masterPuts.addInput(name,streamout,id);
-			Inputs.push(input);
-			return input;
-
+			return this;
 		}
 
-		this.getNewInput = function(name,streamout){
-			var input = masterPuts.getNewInput(name,streamout);
-			Inputs.push(input);
-			return input;
+		function Output (name,connection,id) {
+			this.name = name;
+			this.id = id;
+			this.connection = connection;
+			var streamin = this.$$streamin = new Bacon.Bus();
+
+			// this.streamin.onValue(function(val){
+			// 		output(val);
+			// 	});
+			
+			var unsubscribe = this.unsubscribe  = {};
+
+			this.subscribe = function(inputdevice){
+				unsubscribe[inputdevice.id] = streamin.plug(inputdevice.streamout);
+			};
+
+			return this;
+		}
+
+		function PutsCollection (masterPuts) {
+			var Inputs = this.Inputs =[];
+			var Outputs = this.Outputs =[];
+
+			this.addInput = function (name,id) {
+				var input = masterPuts.addInput(name,id);
+				Inputs.push(input);
+				return input;
+
+			}
+
+			this.getNewInput = function(name){
+				var input = masterPuts.getNewInput(name);
+				Inputs.push(input);
+				return input;
+
+			}
+			
+			this.getInput = function(sourceId){
+				var input = _.find(this.Inputs,function(input){
+					return (input.id === sourceId);
+				});
+				return input;
+			}
+
+			this.addOutput = function(name,output,id){
+				var output = masterPuts.addOutput(name,output,id);
+				Outputs.push(output);
+				return output;
+			}
+
+			this.getNewOutput = function(name,output){
+				var output = masterPuts.getNewOutput(name,output);
+				Outputs.push(output);
+				return output;
+			}
+			
+			this.getOutput = function(sourceId){
+				var output = _.find(this.Outputs,function(output){
+					return (output.id === sourceId);
+				});
+				return output;
+			}
+			return this;
 
 		}
-		
-		this.getInput = function(sourceId){
-			var input = _.find(this.Inputs,function(input){
-				return (input.id === sourceId);
-			});
-			return input;
-		}
-
-		this.getNewOutput = function(name,output){
-			var output = masterPuts.getNewOutput(name,output);
-			Outputs.push(output);
-			return output;
-		}
-		
-		this.getOutput = function(sourceId){
-			var output = _.find(this.Outputs,function(output){
-				return (output.id === sourceId);
-			});
-			return output;
-		}
-		return this;
-
-	})
-	.factory('PutService',function(Input,Output,PutsCollection){
 
 		var masterInputs = this.Inputs = [];
 		var masterOutputs = this.Outputs = [];			
 
-		this.getNewInput = function(name,streamout){
-			var newInput = this.addInput(name,streamout,masterInputs.length);
+		this.getNewInput = function(name){
+			var newInput = this.addInput(name,'Input-'+masterInputs.length);
 			return newInput;
 		}
 
-		this.addInput = function (name, streamout, id) {
-			var newInput = new Input(name,streamout,id);
+		this.addInput = function (name, id) {
+			var newInput = new Input(name,id);
 			masterInputs.push(newInput);
 			return newInput;
 		}
 
 		this.getNewOutput = function(name,output){
-			var newOutput = new this.addOutput(name,output,masterOutputs.length);
+			var newOutput = new this.addOutput(name,'','Output-'+masterOutputs.length);
 			return newOutput;
 		};
 
@@ -111,10 +117,6 @@ angular.module('Puts')
 			return output;
 		}
 
-
-
-
-
 		this.getNewPutsCollection = function(){
 			return new PutsCollection(this);
 		};
@@ -125,14 +127,6 @@ angular.module('Puts')
 
 		}
 
-		this.fromJSON = function(JSON){
-			var lit = angular.fromJson(JSON);
-
-			_.each(lit.Inputs,function(Input){
-				this.IO.getNewInput(Input.id)
-			})
-
-		}
 		return this;
 
 
