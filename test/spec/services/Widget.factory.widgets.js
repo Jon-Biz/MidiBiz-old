@@ -1,5 +1,6 @@
 describe("Engine factory", function() {
 
+	var engineFactory;
 	var engine;
  	beforeEach(function() {
 
@@ -9,7 +10,8 @@ describe("Engine factory", function() {
 			var PutModule = $injector.get("PutService");
 			var PutService = PutModule.getPutService();
 
-			engine = $injector.get('engineFactory').getEngine();
+			engineFactory = $injector.get('engineFactory');
+			engine = engineFactory.getEngine();
 		});
 	});
 
@@ -173,6 +175,24 @@ describe("Engine factory", function() {
 
 
 			 });
+		});
+
+		describe("when called again", function() {
+		  
+		  var engine2;
+
+		  beforeEach(function() {
+		    engine2 = engineFactory.getEngine();
+		  });
+
+		  it("should not share the same PutService", function() {
+
+		    var input = engine2.IO.getNewInput('test');
+
+		    expect(engine2.$$master.Inputs.length).toEqual(1);
+		    expect(engine.$$master.Inputs.length).toEqual(0);
+
+		  });
 		});
 
 	});
