@@ -56,7 +56,6 @@ angular.module('WidgetServicer', ['Puts'])
 		}
 
 		function engine(){
-			var that = new machine;
 
 			var Puts = PutService.getPutService();
 
@@ -64,6 +63,7 @@ angular.module('WidgetServicer', ['Puts'])
 
 			that.$$master = Puts;
 
+			that.machines = [];
 
 			that.$$toJson = function(){
 				return angular.toJson(this);
@@ -95,5 +95,8 @@ angular.module('WidgetServicer', ['Puts'])
 			return that;
 		}
 
-		return new engine;
+		this.getEngine = function () {
+			return new engine;
+		}
+
 	});

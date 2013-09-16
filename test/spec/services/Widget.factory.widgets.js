@@ -6,15 +6,17 @@ describe("Engine factory", function() {
 		module('Puts');
 		module('WidgetServicer');
 		inject(function($injector){
-			var PutService = $injector.get('PutService');
-			engine = $injector.get('engineFactory');
+			var PutModule = $injector.get("PutService");
+			var PutService = PutModule.getPutService();
+
+			engine = $injector.get('engineFactory').getEngine();
 		});
 	});
 
 	afterEach(function() {
 	});
 
-	describe("engineFactory", function() {
+	describe("engineFactory.getEngine()", function() {
 		
 		it("should return an engine", function() {
 		  expect(engine).not.toBeNull();
@@ -75,104 +77,103 @@ describe("Engine factory", function() {
 
 		  });
 
-		describe("when an input and output is added", function() {
+			describe("when an input and output is added", function() {
 
-			beforeEach(function() {
-			  engine.IO.getNewInput("testinput");
-			  engine.IO.getNewOutput("test");
-			  
+				beforeEach(function() {
+				  engine.IO.getNewInput("testinput");
+				  engine.IO.getNewOutput("test");
+				  
+				});
+
+				describe("engine.toJSON()", function() {
+
+					var notEmptyEngine = {
+						'IO':{
+							'Inputs':[{"name":"testinput",
+										"id":"Input-0",
+									}],
+							'Outputs':[{"name":"test",
+										"id":"Output-0",
+										"connection":"",
+										"unsubscribe":{}
+									}]
+						},
+						'machines':[]
+					};
+
+					var notEmptyEngineJson = angular.toJson(notEmptyEngine);
+
+				  it("should return an Json string representing the IO and machines arrays", function() {
+
+					expect(engine.$$toJson()).toEqual(notEmptyEngineJson);
+
+				  });
+
+				});
 			});
 
-			describe("engine.toJSON()", function() {
-
-				var notEmptyEngine = {
+			describe("when engine.fromJSON() is called", function() {
+				var BusSpy;
+				var SubSpy;
+				var engineJSON = angular.toJson({
 					'IO':{
-						'Inputs':[{"name":"testinput",
-									"id":"Input-0",
-								}],
-						'Outputs':[{"name":"test",
-									"id":"Output-0",
-									"connection":"",
-									"unsubscribe":{}
-								}]
-					},
-					'machines':[]
-				};
+							'Inputs':[{"id":"Input-0",
+										"name":"test_input"}],
+							'Outputs':[{"id":"Output-0",
+										"name": "test_output",
+										"connection":"Input-0",
+										"unsubscribe":{}
+									}]
+						},
+						'Machines':[{
+							'Name':"Engine-1",
+							'Inputs':[{"id":"Input-1",
+										"name":"test_input"}],
+							'Outputs':[{"id":"Output-1",
+										"name": "test_output",
+										"unsubscribe":{}
+									}]
+						}]
+					});
 
-				var notEmptyEngineJson = angular.toJson(notEmptyEngine);
+				beforeEach(function() {
+					BusSpy = sinon.spy(Bacon,"Bus");
+					engine.fromJson(engineJSON);
 
-			  it("should return an Json string representing the IO and machines arrays", function() {
+				
+				});
 
-				expect(engine.$$toJson()).toEqual(notEmptyEngineJson);
+				afterEach(function() {
+				  BusSpy.restore();
+				});
 
-			  });
 
-			});
+				it("should add 1 to the length of IO.Inputs", function() {
+					expect(engine.IO.Inputs.length).toEqual(1);
+				});		   
+				it("should add an input named 'test_input' to the IO.Inputs", function() {
+					expect(engine.IO.Inputs[0].name).toEqual('test_input');
+					});
+
+				it("should add an output named 'test_Output' to the IO.Outputs", function() {
+					expect(engine.IO.Outputs[0].name).toEqual('test_output');
+					});
+
+				it("should call a new Bacon.Bus for each input (twice)", function() {
+				  expect(BusSpy).toHaveBeenCalledTwice();
+				});			
+
+				it("should have added an unsubscribe function call 'Input-1' to the Outputs unsubscribe literal", function() {
+				  expect(engine.IO.Outputs[0].unsubscribe['Input-0']).toBeDefined();
+				});
+
+				xit("should have increased the length of machines by 1", function() {
+				  	expect(engine.machines.length).toEqual(1);
+				});
+
+
+			 });
 		});
-
-		describe("when engine.fromJSON() is called", function() {
-			var BusSpy;
-			var SubSpy;
-			var engineJSON = angular.toJson({
-				'IO':{
-						'Inputs':[{"id":"Input-0",
-									"name":"test_input"}],
-						'Outputs':[{"id":"Output-0",
-									"name": "test_output",
-									"connection":"Input-0",
-									"unsubscribe":{}
-								}]
-					},
-					'Machines':[{
-						'Name':"Engine-1",
-						'Inputs':[{"id":"Input-1",
-									"name":"test_input"}],
-						'Outputs':[{"id":"Output-1",
-									"name": "test_output",
-									"unsubscribe":{}
-								}]
-					}]
-				});
-
-			beforeEach(function() {
-				BusSpy = sinon.spy(Bacon,"Bus");
-				engine.fromJson(engineJSON);
-
-			
-			});
-
-			afterEach(function() {
-			  BusSpy.restore();
-			});
-
-
-			it("should add 1 to the length of IO.Inputs", function() {
-				expect(engine.IO.Inputs.length).toEqual(1);
-			});		   
-			it("should add an input named 'test_input' to the IO.Inputs", function() {
-				expect(engine.IO.Inputs[0].name).toEqual('test_input');
-				});
-
-			it("should add an output named 'test_Output' to the IO.Outputs", function() {
-				expect(engine.IO.Outputs[0].name).toEqual('test_output');
-				});
-
-			it("should call a new Bacon.Bus for each input (twice)", function() {
-			  expect(BusSpy).toHaveBeenCalledTwice();
-			});			
-
-			it("should have added an unsubscribe function call 'Input-1' to the Outputs unsubscribe literal", function() {
-			  expect(engine.IO.Outputs[0].unsubscribe['Input-0']).toBeDefined();
-			});
-
-			xit("should have increased the length of machines by 1", function() {
-			  	expect(engine.machines.length).toEqual(1);
-			});
-
-
-		 });
-	});
-
 
 	});
 
