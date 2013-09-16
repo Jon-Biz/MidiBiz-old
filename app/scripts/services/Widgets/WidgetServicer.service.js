@@ -50,18 +50,19 @@ angular.module('WidgetServicer', ['Puts'])
 	})
 	.service('engineFactory',function(PutService){
 
-
-		function machine () {
-			this.IO = PutService.getNewPutsCollection();
+		function machine (PutSvce) {
+			this.IO = PutSvce.getNewPutsCollection();
 			return this;
 		}
 
 		function engine(){
 			var that = new machine;
 
-			that.$$master = PutService;
+			var Puts = PutService.getPutService();
 
-			that.machines = [];
+			var that = new machine(Puts);
+
+			that.$$master = Puts;
 
 
 			that.$$toJson = function(){

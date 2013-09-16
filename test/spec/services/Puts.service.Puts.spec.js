@@ -8,7 +8,8 @@ describe("Puts service", function() {
 		module('Puts');
 
 		inject(function($injector){
-			PutService = $injector.get("PutService");
+			var PutModule = $injector.get("PutService");
+			PutService = PutModule.getPutService();
 		});
 	});
 

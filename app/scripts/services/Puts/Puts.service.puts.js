@@ -17,7 +17,7 @@ angular.module('Puts')
 			this.id = id;
 			this.connection = connection;
 			var streamin = this.$$streamin = new Bacon.Bus();
-						
+
 			var unsubscribe = this.unsubscribe  = {};
 
 			this.subscribe = function(inputdevice){
@@ -126,8 +126,11 @@ angular.module('Puts')
 			}
 		}
 
+		//return new PutSvce; 
 
-		return new PutSvce; 
+		this.getPutService = function () {
+			return new PutSvce
+		} 
 
-
+		return this;
 	})
