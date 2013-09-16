@@ -1,17 +1,15 @@
 xdescribe("MidiIO config", function() {
   var Midiputs;
   var MidiService;
-  var $timeout_;
 
   beforeEach(function($provider) {
 
+  	//TODO remove this dependency from the test
   	module('Puts');
+
 	module('MidiIO');
-	inject(function($injector,$timeout,Puts){
-		Midiputs = $injector.get('Midiputs',$timeout,Puts);
-
-		$timeout_ =$injector.get('$timeout');
-
+	inject(function($injector,$timeout,PutService){
+		Midiputs = $injector.get('Midiputs',PutService);
 	});
   });
 
@@ -19,27 +17,26 @@ xdescribe("MidiIO config", function() {
 
 		it("should be an object containing an 'input' array and an 'output' array", function() {
 
-		    expect(Midiputs instanceof Object).toBeTruthy();
-		    expect(Midiputs.inputs instanceof Array).toBeTruthy();
-		    expect(Midiputs.outputs instanceof Array).toBeTruthy();
+//		    expect(Midiputs instanceof Object).toBeTruthy();
+		    expect(Midiputs.IO.Inputs instanceof Array).toBeTruthy();
+		    expect(Midiputs.IO.Outputs instanceof Array).toBeTruthy();
 
 		   });
 
-		describe("addInput()", function() {
-		  it("should add an input to the input array after the timeout is flushed", function() {
+		describe("getNewInput()", function() {
+		  it("should add an input to the input array", function() {
 		    
-		    Midiputs.addInput({'testinput':'test'});
-		    expect(Midiputs.inputs.length).toEqual(0);
-		    $timeout_.flush();
-		    expect(Midiputs.inputs.length).toEqual(1);
+		    Midiputs.getNewInput({'testinput':'test'});
+		    expect(Midiputs.Inputs.length).toEqual(1);
 		  });
+		});
 
-		  it("should add an output to the output array after the timeout is flushed", function() {
+		describe("getNewOutput()", function() {
+		  
+		  it("should add an output to the output array", function() {
 		    
-		    Midiputs.addOutput({'testoutput':'test'});
-		    expect(Midiputs.outputs.length).toEqual(0);
-		    $timeout_.flush();
-		    expect(Midiputs.outputs.length).toEqual(1);
+		    Midiputs.getNewOutput({'testoutput':'test'});
+		    expect(Midiputs.Outputs.length).toEqual(1);
 		  });
 		});
 
