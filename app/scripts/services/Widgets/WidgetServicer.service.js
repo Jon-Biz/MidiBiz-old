@@ -8,7 +8,7 @@
 *
 * Delivers widgets
 */
-angular.module('WidgetServicer', [])
+angular.module('WidgetServicer', ['Puts'])
 	.service('widgets',function () {
 
 		var inputs = [];
@@ -48,15 +48,21 @@ angular.module('WidgetServicer', [])
 
 		return widgets;
 	})
-	.factory('widget',function(){
+	.value('machine',function(PutService){
 
-		this.inputs = [];
-		this.outputs = [];
-		this.internal = {
-			inputs:[],
-			outputs:[],
-			widgets:[]
+		this.IO = PutService.getNewPutsCollection();
+
+	})
+	.factory('engineFactory',function(PutService,machine){
+
+		var engine = new machine(PutService);
+		engine.$$master = PutService;
+
+		engine.machines = [];
+
+		engine.$$toJson = function(){
+			return angular.toJson(this);
 		}
-		return this;
 
+		return engine;
 	});
