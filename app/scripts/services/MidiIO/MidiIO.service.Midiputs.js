@@ -2,11 +2,11 @@
 'use strict';
 /*global midiBridge*/
 
-var MidiIO = angular.module('MidiIO');
+var MidiIO = angular.module('MidiIO',['Puts']);
 
 MidiIO.factory('Midiputs',function (PutService) {
 
-	var IO = new PutService.getNewPutsCollection();
+	var IO = PutService.getNewPutsCollection();
 
 	IO.msgParse = function (msg) {
 

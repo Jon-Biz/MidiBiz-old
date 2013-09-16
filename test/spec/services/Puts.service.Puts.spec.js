@@ -12,6 +12,39 @@ describe("Puts service", function() {
 		});
 	});
 
+	describe("PutService", function() {
+	  
+		it("should contain master.Inputs and master.Outputs arrays", function() {
+		  expect(PutService.Inputs instanceof Array).toBeTruthy();
+		  expect(PutService.Outputs instanceof Array).toBeTruthy();
+		});
+
+		describe(".addInput('test',{},1')", function() {
+			var Input;
+
+			beforeEach(function() {
+			  Input = PutService.addInput('test',{},1);	
+			});
+			
+		  it("should make the Inputs array should be length 1", function() {
+		   expect(PutService.Inputs.length).toEqual(1);
+		  });
+		});
+
+		describe(".addOutput('test',{},1')", function() {
+			var Output;
+
+			beforeEach(function() {
+			  Output = PutService.addOutput('test',{},1);	
+			});
+			
+		  it("should make the Outputs array should be length 1", function() {
+		   expect(PutService.Outputs.length).toEqual(1);
+		  });		  
+		});
+
+	});
+
 	describe("getNewPutCollection()", function() {
 		var Puts;
  
@@ -31,6 +64,18 @@ describe("Puts service", function() {
   			expect(Puts.Inputs.length).toEqual(0);
 		});
 
+		describe(".addInput('test',{},1')", function() {
+			var Input;
+
+			beforeEach(function() {
+			  Input = Puts.addInput('test',{},1);	
+			});
+			
+		  it("should make the PutService Inputs array should be length 1", function() {
+		   expect(PutService.Inputs.length).toEqual(1);
+		  });
+		});
+
 		describe("getNewInput('test','') called on it", function() {
 
 			var Input;
@@ -45,15 +90,15 @@ describe("Puts service", function() {
 					expect(Input.name).toEqual('test');
 				});
 
-				it("with an id of 'input-0'", function() {
-					expect(Input.id).toEqual('input-0');    
+				it("with an id of 'Input-0'", function() {
+					expect(Input.id).toEqual('Input-0');    
 				});
 			  
 			});
 
-			describe("getInput('input-0')", function() {
+			describe("getInput('Input-0')", function() {
 			    it("should return the Input",function () {
-			    	expect(Puts.getInput('input-0')).toEqual(Input);
+			    	expect(Puts.getInput('Input-0')).toEqual(Input);
 			    })
 			});  
 
@@ -61,7 +106,7 @@ describe("Puts service", function() {
 				expect(Puts.Inputs.length).toEqual(1);
 			});
 
-			it("should add one to the length of the PutService.inputs", function() {
+			it("should add one to the length of the PutService.master.inputs", function() {
 				expect(PutService.Inputs.length).toEqual(1);
 			});
 
@@ -69,15 +114,15 @@ describe("Puts service", function() {
 				expect(Puts.Inputs[0].name).toEqual('test');
 			});
 
-			describe("getInput('input-0' called on it", function() {
+			describe("getInput('Input-0' called on it", function() {
 			  it("should return the input we created", function() {
-			    expect(Puts.getInput('input-0')).toEqual(Input);
+			    expect(Puts.getInput('Input-0')).toEqual(Input);
 			  });
 			});
 
-			describe("and PutService.getInput('input-0')", function() {
+			describe("and PutService.getInput('Input-0')", function() {
 			  it("should return the input we created", function() {
-			    expect(PutService.getInput('input-0')).toEqual(Input);
+			    expect(PutService.getInput('Input-0')).toEqual(Input);
 			  });
 			});
 
@@ -95,8 +140,8 @@ describe("Puts service", function() {
 			});
 
 			it("getNewInput should return an object with an id of 'input-0' and one of 'input-1", function() {
-				expect(Input0.id).toEqual('input-0');    
-				expect(Input1.id).toEqual('input-1');    
+				expect(Input0.id).toEqual('Input-0');    
+				expect(Input1.id).toEqual('Input-1');    
 
 			});
 
@@ -143,7 +188,7 @@ describe("Puts service", function() {
 				expect(Puts.Outputs.length).toEqual(1);
 			});
 
-			it("should add one to the length of the PutService.Outputs", function() {
+			it("should add one to the length of the PutService.master.Outputs", function() {
 				expect(PutService.Outputs.length).toEqual(1);
 			});
 
