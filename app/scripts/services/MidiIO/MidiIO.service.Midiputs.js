@@ -2,13 +2,13 @@
 'use strict';
 /*global midiBridge*/
 
-var MidiIO = angular.module('MidiIO',['Puts']);
+angular.module('MidiIO')
 
-MidiIO.factory('Midiputs',function (PutService) {
-	var Puts = PutService.getPutService();
-	var IO = Puts.getNewPutsCollection();
+.service('Midiputs',function (PutService) {
+	var that = PutService.getPutService();
+	//this.IO = Puts.getNewPutsCollection();
 
-	IO.msgParse = function (msg) {
+	that.msgParse = function (msg) {
 
 		var parsedmsg = {};
 
@@ -29,12 +29,12 @@ MidiIO.factory('Midiputs',function (PutService) {
 
 	};
 
-	IO.msgReparse = function (noteobj) {
+	this.msgReparse = function (noteobj) {
 		noteobj.CMD = this.reparseMidiCMD(noteobj.CMD);
 		return noteobj;
 	};
 
-	IO.reparseMidiCMD = function(command){
+	this.reparseMidiCMD = function(command){
 
 		var midicommand;
 
@@ -102,5 +102,5 @@ MidiIO.factory('Midiputs',function (PutService) {
 		return midicommand;
 	};
 
-	return IO;
+	return that;
 });
