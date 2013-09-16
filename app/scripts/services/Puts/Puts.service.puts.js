@@ -17,11 +17,7 @@ angular.module('Puts')
 			this.id = id;
 			this.connection = connection;
 			var streamin = this.$$streamin = new Bacon.Bus();
-
-			// this.streamin.onValue(function(val){
-			// 		output(val);
-			// 	});
-			
+						
 			var unsubscribe = this.unsubscribe  = {};
 
 			this.subscribe = function(inputdevice){
@@ -78,56 +74,60 @@ angular.module('Puts')
 
 		}
 
-		var masterInputs = this.Inputs = [];
-		var masterOutputs = this.Outputs = [];			
+		function PutSvce () {
 
-		this.getNewInput = function(name){
-			var newInput = this.addInput(name,'Input-'+masterInputs.length);
-			return newInput;
+			var masterInputs = this.Inputs = [];
+			var masterOutputs = this.Outputs = [];			
+
+			this.getNewInput = function(name){
+				var newInput = this.addInput(name,'Input-'+masterInputs.length);
+				return newInput;
+			}
+
+			this.addInput = function (name, id) {
+				var newInput = new Input(name,id);
+				masterInputs.push(newInput);
+				return newInput;
+			}
+
+			this.getNewOutput = function(name,output){
+				var newOutput = new this.addOutput(name,'','Output-'+masterOutputs.length);
+				return newOutput;
+			};
+
+			this.addOutput = function (name,output, id) {
+				var newOutput = new Output(name,output,id);
+				masterOutputs.push(newOutput);
+				return newOutput;
+			}
+
+			this.getInput = function(sourceId){
+				var input = _.find(this.Inputs,function(input){
+					return (input.id === sourceId);
+				});
+				return input;
+			}
+
+			this.getOutput = function(sourceId){
+				var output = _.find(this.Outputs,function(output){
+					return (output.id === sourceId);
+				});
+				return output;
+			}
+
+			this.getNewPutsCollection = function(){
+				return new PutsCollection(this);
+			};
+
+			this.$$toJSON = function () {
+
+				return angular.toJson(this);
+
+			}
 		}
 
-		this.addInput = function (name, id) {
-			var newInput = new Input(name,id);
-			masterInputs.push(newInput);
-			return newInput;
-		}
 
-		this.getNewOutput = function(name,output){
-			var newOutput = new this.addOutput(name,'','Output-'+masterOutputs.length);
-			return newOutput;
-		};
-
-		this.addOutput = function (name,output, id) {
-			var newOutput = new Output(name,output,id);
-			masterOutputs.push(newOutput);
-			return newOutput;
-		}
-
-		this.getInput = function(sourceId){
-			var input = _.find(this.Inputs,function(input){
-				return (input.id === sourceId);
-			});
-			return input;
-		}
-
-		this.getOutput = function(sourceId){
-			var output = _.find(this.Outputs,function(output){
-				return (output.id === sourceId);
-			});
-			return output;
-		}
-
-		this.getNewPutsCollection = function(){
-			return new PutsCollection(this);
-		};
-
-		this.$$toJSON = function () {
-
-			return angular.toJson(this);
-
-		}
-
-		return this;
+		return new PutSvce; 
 
 
 	})
