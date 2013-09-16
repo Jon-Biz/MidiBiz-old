@@ -78,8 +78,8 @@ describe("Engine factory", function() {
 		describe("when an input and output is added", function() {
 
 			beforeEach(function() {
-			  engine.IO.getNewInput();
-			  engine.IO.getNewOutput();
+			  engine.IO.getNewInput("testinput");
+			  engine.IO.getNewOutput("test");
 			  
 			});
 
@@ -87,9 +87,12 @@ describe("Engine factory", function() {
 
 				var notEmptyEngine = {
 					'IO':{
-						'Inputs':[{"id":"Input-0"}],
-						'Outputs':[{"id":"Output-0",
-									"streamin":{},
+						'Inputs':[{"name":"testinput",
+									"id":"Input-0",
+								}],
+						'Outputs':[{"name":"test",
+									"id":"Output-0",
+									"connection":"",
 									"unsubscribe":{}
 								}]
 					},
@@ -107,25 +110,66 @@ describe("Engine factory", function() {
 			});
 		});
 
-		xdescribe("when engine.fromJSON() is called", function() {
-
+		describe("when engine.fromJSON() is called", function() {
+			var BusSpy;
+			var SubSpy;
 			var engineJSON = angular.toJson({
 				'IO':{
-						'Inputs':[{"id":"Input-0"}],
+						'Inputs':[{"id":"Input-0",
+									"name":"test_input"}],
 						'Outputs':[{"id":"Output-0",
-									"streamin":{},
+									"name": "test_output",
+									"connection":"Input-0",
 									"unsubscribe":{}
 								}]
 					},
-					'machines':[]
+					'Machines':[{
+						'Name':"Engine-1",
+						'Inputs':[{"id":"Input-1",
+									"name":"test_input"}],
+						'Outputs':[{"id":"Output-1",
+									"name": "test_output",
+									"unsubscribe":{}
+								}]
+					}]
 				});
 
+			beforeEach(function() {
+				BusSpy = sinon.spy(Bacon,"Bus");
+				engine.fromJson(engineJSON);
+
+			
+			});
+
+			afterEach(function() {
+			  BusSpy.restore();
+			});
+
+
 			it("should add 1 to the length of IO.Inputs", function() {
-				expect(engine.IO.Inputs.length).toEqual(0);
-				engine.fromJSON(engineJSON)
 				expect(engine.IO.Inputs.length).toEqual(1);
-					     
 			});		   
+			it("should add an input named 'test_input' to the IO.Inputs", function() {
+				expect(engine.IO.Inputs[0].name).toEqual('test_input');
+				});
+
+			it("should add an output named 'test_Output' to the IO.Outputs", function() {
+				expect(engine.IO.Outputs[0].name).toEqual('test_output');
+				});
+
+			it("should call a new Bacon.Bus for each input (twice)", function() {
+			  expect(BusSpy).toHaveBeenCalledTwice();
+			});			
+
+			it("should have added an unsubscribe function call 'Input-1' to the Outputs unsubscribe literal", function() {
+			  expect(engine.IO.Outputs[0].unsubscribe['Input-0']).toBeDefined();
+			});
+
+			xit("should have increased the length of machines by 1", function() {
+			  	expect(engine.machines.length).toEqual(1);
+			});
+
+
 		 });
 	});
 
