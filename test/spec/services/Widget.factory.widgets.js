@@ -114,6 +114,8 @@ describe("Engine factory", function() {
 				});
 			});
 
+		});
+
 			describe("when engine.fromJSON() is called", function() {
 				var BusSpy;
 				var SubSpy;
@@ -175,7 +177,6 @@ describe("Engine factory", function() {
 
 
 			 });
-		});
 
 		describe("when called again", function() {
 		  
