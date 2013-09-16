@@ -20,11 +20,11 @@ describe("Puts service", function() {
 		  expect(PutService.Outputs instanceof Array).toBeTruthy();
 		});
 
-		xdescribe(".addInput({'name':'test','streamout':{},'id':'1'})", function() {
+		describe(".addInput(test',1})", function() {
 			var Input;
 
 			beforeEach(function() {
-			  Input = PutService.addInput({'name':'test','streamout':{},'id':'1'});	
+			  Input = PutService.addInput('test','1');	
 			});
 			
 		  it("should make the Inputs array should be length 1", function() {
@@ -36,16 +36,21 @@ describe("Puts service", function() {
 		  })
 		});
 
-		describe(".addOutput('test',{},1')", function() {
+		describe(".addOutput('test',1')", function() {
 			var Output;
 
 			beforeEach(function() {
-			  Output = PutService.addOutput('test',{},1);	
+			  Output = PutService.addOutput('test',1);	
 			});
 			
 		  it("should make the Outputs array should be length 1", function() {
 		   expect(PutService.Outputs.length).toEqual(1);
 		  });		  
+		  
+		  it("should create an Output with name of 'test'",function(){
+		  	expect(Output.name).toEqual('test');
+		  })
+
 		});
 
 	});
