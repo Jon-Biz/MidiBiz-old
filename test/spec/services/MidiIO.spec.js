@@ -1,6 +1,6 @@
 'use strict';
 
-xdescribe("MidiService", function() {
+describe("MidiService", function() {
 
 var MidiService;
 
@@ -15,15 +15,11 @@ var MidiService;
 	  expect(MidiService).toBeDefined();
 	});
 
-	describe('MidiService.inputs', function() {
+	describe('MidiService.Inputs, Outputs', function() {
 	  it('should be an array', function() {
-	    expect(MidiService.inputs instanceof Array).toBeTruthy();
-	  });
-	});  
+	    expect(MidiService.Inputs instanceof Array).toBeTruthy();
+	    expect(MidiService.Outputs instanceof Array).toBeTruthy();
 
-	describe('MidiService.outputs', function() {
-	  it('should be an array', function() {
-	    expect(MidiService.outputs instanceof Array).toBeTruthy();
 	  });
 	});  
 
@@ -108,10 +104,4 @@ var MidiService;
 
 	})
 
-	describe("reparseMidi", function() {
-
-		
-
-
-	});
 });
