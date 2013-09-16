@@ -50,17 +50,18 @@ angular.module('WidgetServicer', ['Puts'])
 	})
 	.service('engineFactory',function(PutService){
 
-		function machine (PutSvce) {
+		var machine = this.machine = function (PutSvce) {
 			this.IO = PutSvce.getNewPutsCollection();
+
 			return this;
 		}
 
-		function engine(){
+		var engine = this.engine = function (){
 
 			var Puts = PutService.getPutService();
 
 			var that = new machine(Puts);
-
+			
 			that.$$master = Puts;
 
 			that.machines = [];
@@ -71,28 +72,48 @@ angular.module('WidgetServicer', ['Puts'])
 
 			that.fromJson = function (JSON) {
 				var widgets = angular.fromJson(JSON);
+				that.expand(widgets);
 
-				angular.forEach(widgets, function (widget) {
-		
-					angular.forEach(widget.Inputs, function(Input, key){
-						this.IO.addInput(Input.name,Input.id)
-					},that);
-
-					angular.forEach(widget.Outputs, function(Output, key){
-						var Output = this.IO.addOutput(Output.name,Output.connection,Output.id)
-					
-						var Input = this.$$master.getInput(Output.connection);
-						if(Input){Output.subscribe(Input)};
-
-					},that);
-
-					angular.forEach(widget.Machines,function (Machine,key) {
-						// body...
-					})
-				})
 			}
 
-			return that;
+			that.expand = function (widgets) {
+				angular.forEach(widgets, function (widget) {
+		
+					that.expandInputs(widget.IO.Inputs);
+					that.expandOutputs(widget.IO.Outputs);
+					that.expandMachines(widget.Machines);
+
+				});
+			}
+
+			that.expandInputs = function (Inputs) {
+				angular.forEach(Inputs, function(Input, key){
+					this.IO.addInput(Input.name,Input.id)
+				},that);
+			};
+
+			that.expandOutputs = function(Outputs){
+				angular.forEach(Outputs, function(Output, key){
+				var Output = this.IO.addOutput(Output.name,Output.connection,Output.id)
+			
+				var Input = this.$$master.getInput(Output.connection);
+				if(Input){Output.subscribe(Input)};
+
+				},that);
+			}
+
+			that.expandMachines = function (Machines) {
+			
+				angular.forEach(Machines,function (Machine,key) {		
+					var newMachine = new engine(Puts);
+					newMachine.expand(Machine);
+				
+					this.machines.push(newMachine);
+
+				},that);
+			}
+
+		return that;
 		}
 
 		this.getEngine = function () {
