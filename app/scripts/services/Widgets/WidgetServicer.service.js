@@ -48,21 +48,51 @@ angular.module('WidgetServicer', ['Puts'])
 
 		return widgets;
 	})
-	.value('machine',function(PutService){
+	.service('engineFactory',function(PutService){
 
-		this.IO = PutService.getNewPutsCollection();
 
-	})
-	.factory('engineFactory',function(PutService,machine){
-
-		var engine = new machine(PutService);
-		engine.$$master = PutService;
-
-		engine.machines = [];
-
-		engine.$$toJson = function(){
-			return angular.toJson(this);
+		function machine () {
+			this.IO = PutService.getNewPutsCollection();
+			return this;
 		}
 
-		return engine;
+		function engine(){
+			var that = new machine;
+
+			that.$$master = PutService;
+
+			that.machines = [];
+
+
+			that.$$toJson = function(){
+				return angular.toJson(this);
+			}
+
+			that.fromJson = function (JSON) {
+				var widgets = angular.fromJson(JSON);
+
+				angular.forEach(widgets, function (widget) {
+		
+					angular.forEach(widget.Inputs, function(Input, key){
+						this.IO.addInput(Input.name,Input.id)
+					},that);
+
+					angular.forEach(widget.Outputs, function(Output, key){
+						var Output = this.IO.addOutput(Output.name,Output.connection,Output.id)
+					
+						var Input = this.$$master.getInput(Output.connection);
+						if(Input){Output.subscribe(Input)};
+
+					},that);
+
+					angular.forEach(widget.Machines,function (Machine,key) {
+						// body...
+					})
+				})
+			}
+
+			return that;
+		}
+
+		return new engine;
 	});
