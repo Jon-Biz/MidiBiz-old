@@ -21,7 +21,8 @@ angular.module('Puts')
 			var unsubscribe = this.unsubscribe  = {};
 
 			this.subscribe = function(inputdevice){
-				unsubscribe[inputdevice.id] = streamin.plug(inputdevice.streamout);
+
+				unsubscribe[inputdevice.id] = streamin.plug(inputdevice.$$streamout);
 			};
 
 			return this;
