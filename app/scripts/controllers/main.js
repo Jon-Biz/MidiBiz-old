@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('angularApp')
-  .controller('MainCtrl', ['$scope','Midiputs', 'widgets',function ($scope,midiputs,widgets) {
+  .controller('MainCtrl', ['$scope','mainEngine',function ($scope,mainEngine) {
 
-	$scope.midiInputs = midiputs.Inputs;
-	$scope.midiOutputs = midiputs.Outputs;
-	$scope.widgets = widgets.widgets;
+	$scope.midiInputs = mainEngine.IO.Inputs;
+	$scope.midiOutputs = mainEngine.IO.Outputs;
+	$scope.widgets = mainEngine.machines;
 
 }]);

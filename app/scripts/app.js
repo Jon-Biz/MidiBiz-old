@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularApp', ['MidiIO','midiInput','Widgets','WidgetServicer','Puts'])
+angular.module('angularApp', ['MidiIO','midiInput','Widgets','WidgetServicer','Puts','MainEngine'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
