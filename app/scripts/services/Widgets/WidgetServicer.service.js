@@ -48,7 +48,7 @@ angular.module('WidgetServicer', ['Puts'])
 
 		return widgets;
 	})
-	.service('engineFactory',function(PutService){
+	.service('engineFactory',function(PutService,$timeout){
 
 		var machine = this.machine = function (PutSvce) {
 			this.IO = PutSvce.getNewPutsCollection();
@@ -78,7 +78,10 @@ angular.module('WidgetServicer', ['Puts'])
 
 			that.expand = function (widgets) {
 				angular.forEach(widgets, function (widget) {
-		
+
+					that.id = widget.id 
+					that.name = widget.name;
+
 					that.expandInputs(widget.IO.Inputs);
 					that.expandOutputs(widget.IO.Outputs);
 					that.expandMachines(widget.Machines);
@@ -107,7 +110,7 @@ angular.module('WidgetServicer', ['Puts'])
 				angular.forEach(Machines,function (Machine,key) {		
 					var newMachine = new engine(Puts);
 					newMachine.expand(Machine);
-				
+
 					this.machines.push(newMachine);
 
 				},that);
