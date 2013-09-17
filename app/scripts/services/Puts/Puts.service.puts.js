@@ -79,24 +79,24 @@ angular.module('Puts')
 			var masterInputs = this.Inputs = [];
 			var masterOutputs = this.Outputs = [];			
 
-			this.getNewInput = function(name){
-				var newInput = this.addInput(name,'Input-'+masterInputs.length);
+			this.getNewInput = function(name,output){
+				var newInput = addInput(name,'Input-'+masterInputs.length);
 				return newInput;
 			}
 
-			this.addInput = function (name, id) {
+			var addInput = this.addInput = function (name, id) {
 				var newInput = new Input(name,id);
 				masterInputs.push(newInput);
 				return newInput;
 			}
 
 			this.getNewOutput = function(name,output){
-				var newOutput = new this.addOutput(name,'','Output-'+masterOutputs.length);
+				var newOutput = new addOutput(name,'','Output-'+masterOutputs.length);
 				return newOutput;
 			};
 
-			this.addOutput = function (name,output, id) {
-				var newOutput = new Output(name,output,id);
+			var addOutput = this.addOutput = function (name,connection, id) {
+				var newOutput = new Output(name,connection,id);
 				masterOutputs.push(newOutput);
 				return newOutput;
 			}

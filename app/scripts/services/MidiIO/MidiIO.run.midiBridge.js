@@ -20,7 +20,7 @@ MidiIO.run(function ($timeout,Midiputs) {
 				return function(){};
 			});
 
-			var midiIn = new Midiputs.getNewInput(device.DeviceName,streamout);
+			var midiIn = new Midiputs.IO.getNewInput(device.DeviceName);
 				
 		});
 
@@ -29,15 +29,25 @@ MidiIO.run(function ($timeout,Midiputs) {
 			if(device.deviceName !== 'Microsoft GS Wavetable Synth'){
 
 				var output = function(unreparsedNote){
+					console.log('cmd',unreparsedNote)
 					var note = Midiputs.msgReparse(unreparsedNote);
-					var midinote = MIDIAccess.createMIDIMessage(note.CMD, 1, note.NOTE, note.VELOCITY);
+
+					var midinote = MIDIAccess.createMIDIMessage(note.CMD, note:CHAN, note:NOTE, note:VELOCITY);
+
 					MIDIAccess.getOutput(device).sendMIDIMessage(midinote);
-				};
+				}
 
-				var midiOut = new Midiputs.getNewOutput(device.DeviceName,output);
+				var midiOut = new Midiputs.IO.getNewOutput(device.DeviceName);
 
-				var midiMessage = ({CMD:'NOTE_ON',CHAN:1,NOTE:48,VELOCITY:100});
-				midiOut.streamin.push(midiMessage);
+				midiOut.output = output;
+
+				midiOut.$$streamin.onValue(function(val){
+					output(val);
+				});
+
+				var midiMessage = {CMD:'NOTE_ON',CHAN:1,NOTE:48,VELOCITY:100};
+				console.log("note: ",midiMessage.CMD )
+				midiOut.$$streamin.push(midiMessage);
 
 
 
