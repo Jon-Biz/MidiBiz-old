@@ -10,7 +10,7 @@
 */
 
 angular.module('midiInput',[])
-	.directive('midiinput',function(){
+	.directive('midiinput',function($timeout){
 		return{
 			restrict:'C',
 			template:'<div id="{{input.id}}"></div>',
@@ -20,7 +20,7 @@ angular.module('midiInput',[])
 					var scope = $scope;
 					jsPlumb.ready(function () {
 //TODO - replace with proper callback
-						window.setTimeout(function () {
+						$timeout(function () {
 							jsPlumb.addEndpoint(scope.input.id,{
 								endpoint:'Dot',
 								anchor:'Right',
@@ -34,7 +34,7 @@ angular.module('midiInput',[])
 			}
 		};
 	})
-	.directive('midioutput',function(){
+	.directive('midioutput',function($timeout){
 		return{
 			restrict:'C',
 			template:'<div id="{{output.id}}"></div>',
@@ -44,7 +44,7 @@ angular.module('midiInput',[])
 					var scope = $scope;
 					jsPlumb.ready(function () {
 //TODO - replace with proper callback
-						window.setTimeout(function () {
+						$timeout(function () {
 							jsPlumb.addEndpoint(scope.output.id,{
 								endpoint:'Dot',
 								anchor:'Left',
