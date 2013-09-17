@@ -2,28 +2,28 @@
 'use strict';
 /* global _ , jsPlumb */
 
-var MidiIO = angular.module('MidiIO');
+var MidiIO = angular.module("MainEngine");
 
-MidiIO.run(function (PutService) {
+MidiIO.run(function (mainEngine) {
 
-	var Inputs = PutService.Inputs;
-	var Outputs = PutService.Outputs;
+	var Inputs = mainEngine.$$master.Inputs;
+	var Outputs = mainEngine.$$master.Outputs;
 	
-	jsPlumb.ready(function(){
+	// jsPlumb.ready(function(){
 
-		jsPlumb.bind('connection', function(info) {
+	// 	jsPlumb.bind('connection', function(info) {
 
-			var inputdevice = PutService.getInput(info.sourceId);
-			var outputdevice = PutService.getOutput(info.targetId);
-			outputdevice.subscribe(inputdevice);
+	// 		var inputdevice = Inputs.getInput(info.sourceId);
+	// 		var outputdevice = Outputs.getOutput(info.targetId);
+	// 		outputdevice.subscribe(inputdevice);
 
-		});
+	// 	});
 
-		jsPlumb.bind('connectionDetached', function(info) {
+	// 	jsPlumb.bind('connectionDetached', function(info) {
 
-			var inputdevice = PutService.getInput(info.sourceId);
-			var outputdevice = PutService.getOutput(info.targetId);
-			outputdevice.unsubscribe[inputdevice.id]();
-		});
-	});
+	// 		var inputdevice = Inputs.getInput(info.sourceId);
+	// 		var outputdevice = Outputs.getOutput(info.targetId);
+	// 		outputdevice.unsubscribe[inputdevice.id]();
+	// 	});
+	//	});
 });
