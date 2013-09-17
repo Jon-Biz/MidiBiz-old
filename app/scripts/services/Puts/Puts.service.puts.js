@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('Puts')
-	.factory('PutService',function(){
+	.factory('PutService',function ($timeout){
 
 		function Input (name,id) {
 			this.name = name;
@@ -76,29 +76,44 @@ angular.module('Puts')
 
 		function PutSvce () {
 
+			var InputsNumber = 0;
+			var OutputsNumber = 0;
 			var masterInputs = this.Inputs = [];
 			var masterOutputs = this.Outputs = [];			
 
 			this.getNewInput = function(name,output){
-				var newInput = addInput(name,'Input-'+masterInputs.length);
+				var id = 'Input-'+InputsNumber;
+				InputsNumber ++;
+
+				var newInput = addInput(name,id);
 				return newInput;
 			}
 
 			var addInput = this.addInput = function (name, id) {
 				var newInput = new Input(name,id);
-				masterInputs.push(newInput);
+
+				$timeout(function () {
+					masterInputs.push(newInput);
+					},100);
+
 				return newInput;
 			}
 
 			this.getNewOutput = function(name,output){
-				var newOutput = new addOutput(name,'','Output-'+masterOutputs.length);
+				var id = 'Output-'+OutputsNumber;
+				OutputsNumber ++;
+				var newOutput = new addOutput(name,'',id);
 				return newOutput;
 			};
 
 			var addOutput = this.addOutput = function (name,connection, id) {
 				var newOutput = new Output(name,connection,id);
-				masterOutputs.push(newOutput);
-				return newOutput;
+
+				$timeout(function () {
+					masterOutputs.push(newOutput);
+				},100);
+
+					return newOutput;
 			}
 
 			this.getInput = function(sourceId){
