@@ -32,7 +32,7 @@ MidiIO.run(function ($timeout,Midiputs) {
 					console.log('cmd',unreparsedNote)
 					var note = Midiputs.msgReparse(unreparsedNote);
 
-					var midinote = MIDIAccess.createMIDIMessage(note.CMD, note:CHAN, note:NOTE, note:VELOCITY);
+					var midinote = MIDIAccess.createMIDIMessage(note.CMD, note.CHAN, note.NOTE, note.VELOCITY);
 
 					MIDIAccess.getOutput(device).sendMIDIMessage(midinote);
 				}
